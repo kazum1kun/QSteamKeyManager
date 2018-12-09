@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>main_window</class>
+ <widget class="QMainWindow" name="main_window">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>QSteamKeyManager</string>
+  </property>
+  <widget class="QWidget" name="widget_master">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <layout class="QHBoxLayout" name="layout_search">
+      <item>
+       <widget class="QLineEdit" name="lineEdit_search">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>24</height>
+         </size>
+        </property>
+        <property name="mouseTracking">
+         <bool>false</bool>
+        </property>
+        <property name="placeholderText">
+         <string>Type here to search for anything...</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_clear">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Clear</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QTableWidget" name="table_content">
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
+      </property>
+      <property name="sortingEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="rowCount">
+       <number>50</number>
+      </property>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>250</number>
+      </attribute>
+      <attribute name="horizontalHeaderStretchLastSection">
+       <bool>true</bool>
+      </attribute>
+      <attribute name="verticalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <column>
+       <property name="text">
+        <string>Game</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Key/URL</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Notes</string>
+       </property>
+      </column>
+      <item row="0" column="0">
+       <property name="text">
+        <string>Sid Meier's Civilization V</string>
+       </property>
+      </item>
+      <item row="0" column="1">
+       <property name="text">
+        <string>11111-22222-33333-44444</string>
+       </property>
+      </item>
+      <item row="0" column="2">
+       <property name="text">
+        <string>My fav!</string>
+       </property>
+      </item>
+      <item row="1" column="0">
+       <property name="text">
+        <string>Artifact</string>
+       </property>
+      </item>
+      <item row="1" column="1">
+       <property name="text">
+        <string>77777-55555-44444</string>
+       </property>
+      </item>
+      <item row="1" column="2">
+       <property name="text">
+        <string>Axe when??</string>
+       </property>
+      </item>
+      <item row="2" column="0">
+       <property name="text">
+        <string>BATTLETECH</string>
+       </property>
+      </item>
+      <item row="2" column="1">
+       <property name="text">
+        <string>AAAAA-CCCCC-SSSSS</string>
+       </property>
+      </item>
+      <item row="2" column="2">
+       <property name="text">
+        <string/>
+       </property>
+      </item>
+      <item row="3" column="0">
+       <property name="text">
+        <string>Dark Messiah of Might &amp; Magic</string>
+       </property>
+      </item>
+      <item row="3" column="1">
+       <property name="text">
+        <string>7777DESFGA1</string>
+       </property>
+      </item>
+      <item row="3" column="2">
+       <property name="text">
+        <string>Press F to kick</string>
+       </property>
+      </item>
+      <item row="4" column="0">
+       <property name="text">
+        <string>Europa Universalis IV</string>
+       </property>
+      </item>
+      <item row="4" column="1">
+       <property name="text">
+        <string>PDOX1-EUROP-UNIV5</string>
+       </property>
+      </item>
+      <item row="4" column="2">
+       <property name="text">
+        <string>Base game only</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="layout_add">
+      <item>
+       <widget class="QLineEdit" name="lineEdit_game">
+        <property name="minimumSize">
+         <size>
+          <width>248</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="placeholderText">
+         <string>Game</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lineEdit_key">
+        <property name="minimumSize">
+         <size>
+          <width>244</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="placeholderText">
+         <string>Key/URL</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lineEdit_notes">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="placeholderText">
+         <string>Notes</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_add">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Add</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_file">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="action_open_collection"/>
+    <addaction name="action_save_changes"/>
+    <addaction name="action_export"/>
+    <addaction name="separator"/>
+    <addaction name="action_exit"/>
+   </widget>
+   <widget class="QMenu" name="menu_options">
+    <property name="title">
+     <string>Options</string>
+    </property>
+    <widget class="QMenu" name="menu_language">
+     <property name="title">
+      <string>Language</string>
+     </property>
+     <addaction name="action_english"/>
+     <addaction name="action_chinese_simplified"/>
+     <addaction name="action_japanese"/>
+    </widget>
+    <addaction name="menu_language"/>
+   </widget>
+   <widget class="QMenu" name="menu_help">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="action_about_qskm"/>
+    <addaction name="action_check_for_updates"/>
+   </widget>
+   <addaction name="menu_file"/>
+   <addaction name="menu_options"/>
+   <addaction name="menu_help"/>
+  </widget>
+  <action name="action_open_collection">
+   <property name="text">
+    <string>Open Collection...</string>
+   </property>
+  </action>
+  <action name="action_save_changes">
+   <property name="text">
+    <string>Save Changes</string>
+   </property>
+  </action>
+  <action name="action_export">
+   <property name="text">
+    <string>Export As...</string>
+   </property>
+  </action>
+  <action name="action_english">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>English</string>
+   </property>
+  </action>
+  <action name="action_chinese_simplified">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Chinese Simplified/简体中文</string>
+   </property>
+  </action>
+  <action name="action_japanese">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Japanese/日本語</string>
+   </property>
+  </action>
+  <action name="action_about_qskm">
+   <property name="text">
+    <string>About QSteamKeyManager...</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::AboutRole</enum>
+   </property>
+  </action>
+  <action name="action_check_for_updates">
+   <property name="text">
+    <string>Check for Updates...</string>
+   </property>
+  </action>
+  <action name="action_exit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::QuitRole</enum>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>action_exit</sender>
+   <signal>triggered()</signal>
+   <receiver>main_window</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
