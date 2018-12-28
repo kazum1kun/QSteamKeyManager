@@ -16,14 +16,14 @@ class DBO:
         cur = conn.cursor()
 
         # id in the table is for "bookkeeping" use only and should be transparent to the user
-        cur.execute('''CREATE TABLE IF NOT EXISTS Games (
+        cur.execute('''CREATE TABLE IF NOT EXISTS {} (
             id INTEGER PRIMARY KEY, 
             game TEXT NOT NULL, 
             key TEXT, 
             notes TEXT,
             category TEXT, 
             tag TEXT
-        );''')
+        );'''.format(Env.game_table_name))
 
         conn.commit()
 
@@ -32,7 +32,7 @@ class DBO:
         conn = self.get_or_create_conn()
         cur = conn.cursor()
 
-        cur.execute('SELECT * FROM ?', Env.game_table_name)
+        cur.execute('SELECT * FROM {}'.format(Env.game_table_name))
         return cur.fetchall()
 
     # Add an entry to the game table
