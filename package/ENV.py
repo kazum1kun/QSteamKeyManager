@@ -2,7 +2,7 @@
 # easy access and modification
 
 
-class Env:
+class ENV:
     # Name of the database file (with extension)
     db_name = 'qskm.db'
 

@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import (QMainWindow, QActionGroup)
 from PyQt5.QtSql import QSqlTableModel
 from PyQt5.QtCore import Qt
 
-from package.Env import Env
+from package.ENV import ENV
 from ui.MainWindow import Ui_main_window
 
 
@@ -21,7 +21,7 @@ class MainWindow(QMainWindow, Ui_main_window):
 
         # Set up a SQL model
         self.model = QSqlTableModel(self)
-        self.model.setTable(Env.game_table_name)
+        self.model.setTable(ENV.game_table_name)
         self.model.setEditStrategy(QSqlTableModel.OnRowChange)
 
         # Customize the name of headers

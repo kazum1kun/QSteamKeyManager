@@ -1,7 +1,7 @@
 # Driver file of the QSKM. Think of it as a ignition switch.
 from PyQt5 import QtSql
 
-from package.Env import Env
+from package.ENV import ENV
 
 if __name__ == '__main__':
     import sys
@@ -11,7 +11,7 @@ if __name__ == '__main__':
 
     # Database connection
     db = QtSql.QSqlDatabase.addDatabase('QSQLITE')
-    db.setDatabaseName(Env.rel_db_path)
+    db.setDatabaseName(ENV.rel_db_path)
 
     app.setStyle('fusion')
     main = MainWindow()

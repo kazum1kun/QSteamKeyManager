@@ -2,7 +2,7 @@
 import sqlite3
 from sqlite3 import Error
 
-from package.Env import Env
+from package.ENV import ENV
 
 
 class DBO:
@@ -23,7 +23,7 @@ class DBO:
             notes TEXT,
             category TEXT, 
             tag TEXT
-        );'''.format(Env.game_table_name))
+        );'''.format(ENV.game_table_name))
 
         conn.commit()
 
@@ -32,7 +32,7 @@ class DBO:
         conn = self.get_or_create_conn()
         cur = conn.cursor()
 
-        cur.execute('SELECT * FROM {}'.format(Env.game_table_name))
+        cur.execute('SELECT * FROM {}'.format(ENV.game_table_name))
         return cur.fetchall()
 
     # Add an entry to the game table
@@ -41,7 +41,7 @@ class DBO:
         cur = conn.cursor()
 
         cur.execute('''INSERT INTO {} (game, key, notes) 
-        VALUES (?, ?, ?)'''.format(Env.game_table_name), (game, key, notes))
+        VALUES (?, ?, ?)'''.format(ENV.game_table_name), (game, key, notes))
 
         conn.commit()
 
@@ -49,7 +49,7 @@ class DBO:
     def get_or_create_conn(self):
         if self.conn is None:
             try:
-                self.conn = sqlite3.connect(Env.rel_db_path)
+                self.conn = sqlite3.connect(ENV.rel_db_path)
                 return self.conn
             except Error as e:
                 # TODO: further error handling
