@@ -8,7 +8,7 @@ class ENV:
 
     # TODO: check if this is ok in production environment
     # Relative path of the database file in the project
-    rel_db_path = '..\\db\\' + db_name
+    rel_db_path = 'db\\{}'.format(db_name)
 
     # Name of the table that stores all data related to the game, including
     # id (transparent to user), name of the game, key/url of the game, notes, category, and more

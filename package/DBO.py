@@ -1,11 +1,15 @@
 # Database Operation object that handles initialization of the db and CRUD operations on records.
 import sqlite3
 from sqlite3 import Error
+from PyQt5 import QtSql
 
 from package.ENV import ENV
 
 
 class DBO:
+    # Placeholder database connection object
+    db = None
+
     # Create a placeholder connection object
     def __init__(self):
         self.conn = None
@@ -57,10 +61,17 @@ class DBO:
         else:
             return self.conn
 
-dbo = DBO()
-dbo.create_table()
-dbo.add_a_game("Sid Meier's Civilization V", "22222-44444-66666", "All-time classic")
-dbo.add_a_game("PAYDAY 2", "PPPPP-DDDDD-22222", "Funnier with friends")
-dbo.add_a_game("BATTLEFIELD 5", "https://www.humblebundle.com/gift?key=AbhFOhj72h8yrHG7", "URL fits here too!")
-dbo.add_a_game("STEINS;GATE", "ELPSY-CONGR-OOOOO", "EL PSY CONGROO!")
-dbo.add_a_game("Mount & Blade II: Bannerlord", "GGGGG-GGGGG-GGGGG", "Not gonna happen anyways")
+    # Auxiliary method to get existing connection or create a new one if not existing
+    @classmethod
+    def get_or_create_db(cls):
+        if cls.db is None:
+            try:
+                cls.db = QtSql.QSqlDatabase.addDatabase('QSQLITE')
+                cls.db.setDatabaseName(ENV.rel_db_path)
+                cls.db.open()
+                return cls.db
+            except Error as e:
+                # TODO: further error handling
+                print(e)
+        else:
+            return cls.db
