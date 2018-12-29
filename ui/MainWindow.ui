@@ -240,22 +240,5 @@
   </action>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>action_exit</sender>
-   <signal>triggered()</signal>
-   <receiver>main_window</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>399</x>
-     <y>299</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

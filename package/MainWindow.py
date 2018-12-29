@@ -5,6 +5,7 @@ from PyQt5.QtCore import Qt
 
 from package.ENV import ENV
 from package.DBO import DBO
+from package.Prompts import Prompts
 from ui.MainWindow import Ui_main_window
 
 
@@ -21,8 +22,19 @@ class MainWindow(QMainWindow, Ui_main_window):
         # Top toolbar
         self.setup_language_grouping()
 
+        # Internal wiring (slots & signals)
+        self.setup_signals()
+
         # Showtime!
         self.show()
+
+    # Define events (signals) in the main window
+    def setup_signals(self):
+        # User clicks on "Open Collection" -> Show a file chooser prompt
+
+
+        # User clicks on "Exit" -> "Confirm Exit" prompt
+        self.action_exit.triggered.connect(Prompts.show_exit_conf)
 
     # Set up the model in the table and link it to the view
     def setup_model(self):
