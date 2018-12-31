@@ -14,3 +14,6 @@ class ENV:
     # id (transparent to user), name of the game, key/url of the game, notes, category, and more
     game_table_name = 'Games'
 
+    # Default db file chooser path (used in conjunction with expanduser() func)
+    default_db_folder_path = '~/Documents/'
+

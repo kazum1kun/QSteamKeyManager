@@ -31,7 +31,7 @@ class MainWindow(QMainWindow, Ui_main_window):
     # Define events (signals) in the main window
     def setup_signals(self):
         # User clicks on "Open Collection" -> Show a file chooser prompt
-
+        self.action_open_collection.triggered.connect(Prompts.show_db_chooser)
 
         # User clicks on "Exit" -> "Confirm Exit" prompt
         self.action_exit.triggered.connect(Prompts.show_exit_conf)
