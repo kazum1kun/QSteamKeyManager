@@ -1,4 +1,7 @@
 # Changelog
+## December 30, 2018
+* Added two prompts to the program. Right now it does not react to your input, though..
+* We now have a (generated) logo! Courtesy of [Font Meme](https://fontmeme.com/fallout-font/). 
 
 ## December 28, 2018
 * After some serious researching and digging QSKM can now reads from a sqlite-based database! 

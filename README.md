@@ -1,4 +1,5 @@
-# QSteamKeyManager
+![QSKM Logo Long, courtesy of Font Meme](https://fontmeme.com/permalink/181231/ae70c4a9e1fc905ed3b78b09ddb0b801.png)
+
 A simple PyQt-based tool that allows you to manage your unused Steam keys and redemption URLs with ease. Functionality-wise similar to my previous project, [Steam Key Manager](https://github.com/l19980623/SteamKeyManager) but rewritten in Python and Qt framework (powered by [PyQt5](https://www.riverbankcomputing.com/software/pyqt/intro)).  
 
 No preview release is available as of yet. Feel free to contribute to the project by submitting Pull Requests or leaving comments. Thank you!
