@@ -5,7 +5,7 @@ A simple PyQt-based tool that allows you to manage your unused Steam keys and re
 No preview release is available as of yet. Feel free to contribute to the project by submitting Pull Requests or leaving comments. Thank you!
 
 ## Intro 
-Do you have a lot of leftover keys from all that bundles but wonder what you gan do with them? No worries, QSteamKeyManager (QSKM) is here to help you! With QSKM you can record, modify, and delete keys and URLs in an intuitive UI. You can also tag and categorize keys and see the corresponding game in the store. All data are stored in a database, making them less vulnerable to tampering.
+Do you have a lot of leftover keys from all that bundles but wonder what you can do with them? No worries, QSteamKeyManager (QSKM) is here to help you! With QSKM you can record, modify, and delete keys and URLs in an intuitive UI. You can also tag and categorize keys and see the corresponding game in the store. All data are stored in a database, making them less vulnerable to tampering.
 
 ## Functions
 As of now, QSKM is only a skeleton and do not provide much functionalities. The following additions and improvements are being worked on:

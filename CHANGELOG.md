@@ -1,4 +1,9 @@
 # Changelog
+## February 13, 2019
+* Happy Lunar New Year!
+* Implemented functionality to add a game.
+    - Notice that any changes are automatically saved to the database, saving some hassles.
+
 ## December 30, 2018
 * Added two prompts to the program. Right now it does not react to your input, though..
 * We now have a (generated) logo! Courtesy of [Font Meme](https://fontmeme.com/fallout-font/). 

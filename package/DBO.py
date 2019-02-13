@@ -9,10 +9,7 @@ from package.ENV import ENV
 class DBO:
     # Placeholder database connection object
     db = None
-
-    # Create a placeholder connection object
-    def __init__(self):
-        self.conn = None
+    conn = None
 
     # Initialize a table where all entries will be stored
     def create_table(self):
@@ -39,9 +36,10 @@ class DBO:
         cur.execute('SELECT * FROM {}'.format(ENV.game_table_name))
         return cur.fetchall()
 
+    @classmethod
     # Add an entry to the game table
-    def add_a_game(self, game, key, notes):
-        conn = self.get_or_create_conn()
+    def add_a_game(cls, game, key, notes):
+        conn = cls.get_or_create_conn()
         cur = conn.cursor()
 
         cur.execute('''INSERT INTO {} (game, key, notes) 
@@ -49,17 +47,18 @@ class DBO:
 
         conn.commit()
 
+    @classmethod
     # Auxiliary method to get existing connection or create a new one if not existing
-    def get_or_create_conn(self):
-        if self.conn is None:
+    def get_or_create_conn(cls):
+        if cls.conn is None:
             try:
-                self.conn = sqlite3.connect(ENV.rel_db_path)
-                return self.conn
+                cls.conn = sqlite3.connect(ENV.rel_db_path)
+                return cls.conn
             except Error as e:
                 # TODO: further error handling
                 print(e)
         else:
-            return self.conn
+            return cls.conn
 
     # Auxiliary method to get existing connection or create a new one if not existing
     @classmethod

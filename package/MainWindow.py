@@ -30,11 +30,14 @@ class MainWindow(QMainWindow, Ui_main_window):
 
     # Define events (signals) in the main window
     def setup_signals(self):
-        # User clicks on "Open Collection" -> Show a file chooser prompt
+        # User clicks on "Open Collection" -> Show a file chooser promptp
         self.action_open_collection.triggered.connect(Prompts.show_db_chooser)
 
         # User clicks on "Exit" -> "Confirm Exit" prompt
         self.action_exit.triggered.connect(Prompts.show_exit_conf)
+
+        # User clicks on "Add" -> Check and add an entry to the table
+        self.pushButton_add.clicked.connect(self.add_entry)
 
     # Set up the model in the table and link it to the view
     def setup_model(self):
@@ -71,3 +74,21 @@ class MainWindow(QMainWindow, Ui_main_window):
         self.action_english.setActionGroup(language_group)
         self.action_chinese_simplified.setActionGroup(language_group)
         self.action_japanese.setActionGroup(language_group)
+
+    # Add a new entry to the collection
+    def add_entry(self):
+        game = self.lineEdit_game.text().strip()
+        key = self.lineEdit_key.text().strip()
+        notes = self.lineEdit_notes.text().strip()
+        # Check if both game and key fields are filled
+        # Note: PEP 8: For sequences, (strings, lists, tuples), use the fact that empty sequences are false.
+        if game and key:
+            # Add the texts in the database and clear the contents
+            # Changes are automatically saved
+            DBO.add_a_game(game, key, notes)
+            self.lineEdit_game.clear()
+            self.lineEdit_key.clear()
+            self.lineEdit_notes.clear()
+
+            # Refresh the model to show the changes
+            self.table_view_content.model().select()
