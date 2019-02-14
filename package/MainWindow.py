@@ -43,11 +43,16 @@ class MainWindow(QMainWindow, Ui_main_window):
         # User enter or delete text from the search box -> Update model filter
         self.lineEdit_search.textChanged.connect(self.filter_entries)
 
+        # User clicks "Clear" -> Search box gets cleared
+        self.pushButton_clear.clicked.connect(self.lineEdit_search.clear)
+
     # Set up the model in the table and link it to the view
     def setup_model(self):
         # Add a filter model to filter (search) items, which in turn includes a SQL model
         proxy_model = QSortFilterProxyModel()
         # Set search column to -1 to search from all columns
+        # this will also search for entry's id which might not be a good idea
+        # TODO: maybe reimplement QSFPM to have custom columns?
         proxy_model.setFilterKeyColumn(-1)
 
         # Set up a SQL model
@@ -104,8 +109,9 @@ class MainWindow(QMainWindow, Ui_main_window):
             self.table_view_content.model().select()
 
     # Filter entries after keyword changes
+    # TODO: test behavior after inserting new entries
     def filter_entries(self):
         keyword = self.lineEdit_search.text().strip()
 
-        # Apply keywords as regexp
+        # Apply keywords as regexp (case insensitive)
         self.table_view_content.model().setFilterRegExp(QRegExp(keyword, Qt.CaseInsensitive))
