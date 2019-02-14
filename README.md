@@ -9,15 +9,15 @@ Do you have a lot of leftover keys from all that bundles but wonder what you can
 
 ## Functions
 As of now, QSKM is only a skeleton and do not provide much functionalities. The following additions and improvements are being worked on:
-- Add/Remove entries to the table
-- Add notes to entries
-- Edit an entry
-- Sort the list
-- Search for anything in the table
-- See a game in Steam
+- Add/Remove entries to the table (50% done/being worked on)
+- Add notes to entries (done)
+- Edit an entry (done)
+- Sort the list (done)
+- Search for anything in the table (done)
+- See a game in Steam (being worked on)
 - Copy key to the system clipboard
 - Import keys from an existing text file
-- Save the table to sql file
+- Save the table to sql file (done)
 - Multi-language support
 - Tag and categorize entries
 - Encrypt local storage

@@ -1,8 +1,14 @@
 # Changelog
+## February 14, 2019
+* [NEW] Search for anything! Hidden indexes as well! (oops)
+* [NEW] Clear search keywords by clicking, surprisingly, "Clear" button.
+
 ## February 13, 2019
 * Happy Lunar New Year!
 * Implemented functionality to add a game.
-    - Notice that any changes are automatically saved to the database, saving some hassles.
+    - Notice that any changes are automatically saved to the database, saving you some hassles.
+    - Given how well this model works, it might not be necessary to have "Save" any more.
+        - But, "Save" has always been part of the software. It feels incomplete without it! Maybe we should just leave as it is. A good placebo I guess..
 
 ## December 30, 2018
 * Added two prompts to the program. Right now it does not react to your input, though..
