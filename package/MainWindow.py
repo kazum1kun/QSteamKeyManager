@@ -1,7 +1,7 @@
 # The main window of the QSteamKeyManager.
 from PyQt5.QtWidgets import (QMainWindow, QActionGroup)
 from PyQt5.QtSql import QSqlTableModel
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QSortFilterProxyModel, QRegExp
 
 from package.ENV import ENV
 from package.DBO import DBO
@@ -12,6 +12,7 @@ from ui.MainWindow import Ui_main_window
 class MainWindow(QMainWindow, Ui_main_window):
     def __init__(self):
         super().__init__()
+
         # Load UI layout defined in the ui file
         self.setupUi(self)
 
@@ -39,12 +40,21 @@ class MainWindow(QMainWindow, Ui_main_window):
         # User clicks on "Add" -> Check and add an entry to the table
         self.pushButton_add.clicked.connect(self.add_entry)
 
+        # User enter or delete text from the search box -> Update model filter
+        self.lineEdit_search.textChanged.connect(self.filter_entries)
+
     # Set up the model in the table and link it to the view
     def setup_model(self):
+        # Add a filter model to filter (search) items, which in turn includes a SQL model
+        proxy_model = QSortFilterProxyModel()
+        # Set search column to -1 to search from all columns
+        proxy_model.setFilterKeyColumn(-1)
+
         # Set up a SQL model
         model = QSqlTableModel(self, DBO.get_or_create_db())
         model.setTable(ENV.game_table_name)
         model.setEditStrategy(QSqlTableModel.OnRowChange)
+        proxy_model.setSourceModel(model)
 
         # Customize the name of headers
         model.setHeaderData(1, Qt.Horizontal, 'Game')
@@ -53,7 +63,7 @@ class MainWindow(QMainWindow, Ui_main_window):
         model.select()
 
         # Link table model to the table view
-        self.table_view_content.setModel(model)
+        self.table_view_content.setModel(proxy_model)
 
     # Tweak some setting in the view
     def setup_view(self):
@@ -92,3 +102,10 @@ class MainWindow(QMainWindow, Ui_main_window):
 
             # Refresh the model to show the changes
             self.table_view_content.model().select()
+
+    # Filter entries after keyword changes
+    def filter_entries(self):
+        keyword = self.lineEdit_search.text().strip()
+
+        # Apply keywords as regexp
+        self.table_view_content.model().setFilterRegExp(QRegExp(keyword, Qt.CaseInsensitive))
