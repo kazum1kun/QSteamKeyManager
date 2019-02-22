@@ -6,6 +6,7 @@ from PyQt5.QtCore import Qt, QSortFilterProxyModel, QRegExp
 from package.ENV import ENV
 from package.DBO import DBO
 from package.Prompts import Prompts
+from package.TableContextMenu import TableContextMenu
 from ui.MainWindow import Ui_main_window
 
 
@@ -45,6 +46,10 @@ class MainWindow(QMainWindow, Ui_main_window):
 
         # User clicks "Clear" -> Search box gets cleared
         self.pushButton_clear.clicked.connect(self.lineEdit_search.clear)
+
+        # User right clicks the table -> A context menu shows up with various features
+        self.table_view_content.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.table_view_content.customContextMenuRequested.connect(self.show_table_context_menu)
 
     # Set up the model in the table and link it to the view
     def setup_model(self):
@@ -115,3 +120,12 @@ class MainWindow(QMainWindow, Ui_main_window):
 
         # Apply keywords as regexp (case insensitive)
         self.table_view_content.model().setFilterRegExp(QRegExp(keyword, Qt.CaseInsensitive))
+
+    # Bring up a context menu
+    def show_table_context_menu(self, pos):
+        # menu = QMenu(self)
+        #
+        # # Define a few actions
+        # action
+        # menu.addAction(QAction())
+        TableContextMenu.show(self, pos)
