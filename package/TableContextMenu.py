@@ -11,7 +11,11 @@ class TableContextMenu:
         action_copy = QAction("Copy Key", parent)
         menu.addAction(action_copy)
         menu.addAction(action_delete)
-        # action = menu.exec_(parent.mapToGlobal(pos))
 
-        # Present the menu on the mouse click point
-        menu.popup(parent.table_view_content.viewport().mapToGlobal(pos))
+        # Present the menu on the mouse click point and perform accordingly
+        action = menu.exec_(parent.table_view_content.viewport().mapToGlobal(pos))
+
+        if action == action_copy:
+            print(parent.table_view_content.selectionModel().currentIndex().data)
+
+

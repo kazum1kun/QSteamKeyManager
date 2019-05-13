@@ -1,0 +1,18 @@
+################################################################
+#
+# Necessary Python packages for QSteamKeyManager:
+# https://github.com/l19980623/QSteamKeyManager
+#
+# You can install all required Python packages by running
+# the following command in a shell:
+#
+#     pip install -r requirements.txt
+#
+################################################################
+# Basic requirements
+
+PyQt5>=5.12.0
+PyQt5-sip>=4.19.0
+
+# Use this also if you want mypy/PyCharm integration
+# PyQt5-stubs>=5.12.0
