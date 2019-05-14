@@ -48,6 +48,19 @@ class DBO:
         conn.commit()
 
     @classmethod
+    # Remove one or more entries from the game table
+    def remove_games(cls, id_list):
+        conn = cls.get_or_create_conn()
+        cur = conn.cursor()
+
+        # Remove all entries on the list (identified by their ID)
+        for game_id in id_list:
+            cur.execute('''DELETE FROM {}  
+                WHERE id = (?)'''.format(ENV.game_table_name), (game_id,))
+
+        conn.commit()
+
+    @classmethod
     # Auxiliary method to get existing connection or create a new one if not existing
     def get_or_create_conn(cls):
         if cls.conn is None:

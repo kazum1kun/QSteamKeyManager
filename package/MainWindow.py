@@ -1,5 +1,5 @@
 # The main window of the QSteamKeyManager.
-from PyQt5.QtWidgets import (QMainWindow, QActionGroup)
+from PyQt5.QtWidgets import QMainWindow, QActionGroup
 from PyQt5.QtSql import QSqlTableModel
 from PyQt5.QtCore import Qt, QSortFilterProxyModel, QRegExp
 
@@ -111,7 +111,7 @@ class MainWindow(QMainWindow, Ui_main_window):
             self.lineEdit_notes.clear()
 
             # Refresh the model to show the changes
-            self.table_view_content.model().select()
+            self.table_view_content.model().sourceModel().select()
 
     # Filter entries after keyword changes
     # TODO: test behavior after inserting new entries
