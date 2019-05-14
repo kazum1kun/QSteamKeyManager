@@ -4,7 +4,7 @@ from PyQt5.QtSql import QSqlTableModel
 from PyQt5.QtCore import Qt, QSortFilterProxyModel, QRegExp
 
 from package.ENV import ENV
-from package.DBO import DBO
+from package.DAO import DAO
 from package.Prompts import Prompts
 from package.TableContextMenu import TableContextMenu
 from ui.MainWindow import Ui_main_window
@@ -61,7 +61,7 @@ class MainWindow(QMainWindow, Ui_main_window):
         proxy_model.setFilterKeyColumn(-1)
 
         # Set up a SQL model
-        model = QSqlTableModel(self, DBO.get_or_create_db())
+        model = QSqlTableModel(self, DAO.get_or_create_db())
         model.setTable(ENV.game_table_name)
         model.setEditStrategy(QSqlTableModel.OnRowChange)
         proxy_model.setSourceModel(model)
@@ -105,7 +105,7 @@ class MainWindow(QMainWindow, Ui_main_window):
         if game and key:
             # Add the texts in the database and clear the contents
             # Changes are automatically saved
-            DBO.add_a_game(game, key, notes)
+            DAO.add_a_game(game, key, notes)
             self.lineEdit_game.clear()
             self.lineEdit_key.clear()
             self.lineEdit_notes.clear()

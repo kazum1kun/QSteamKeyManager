@@ -6,7 +6,7 @@ from PyQt5 import QtSql
 from package.ENV import ENV
 
 
-class DBO:
+class DAO:
     # Placeholder database connection object
     db = None
     conn = None

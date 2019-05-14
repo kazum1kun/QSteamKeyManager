@@ -1,7 +1,7 @@
 # A context menu for the table
 import pyperclip
 from PyQt5.QtWidgets import QMenu, QAction
-from package.DBO import DBO
+from package.DAO import DAO
 
 
 class TableContextMenu:
@@ -10,6 +10,7 @@ class TableContextMenu:
         # Define a menu and some actions
         menu = QMenu(parent)
         action_copy_key = QAction("Copy Key", parent)
+        action_copy_name = QAction("Copy Game Name", parent)
         action_delete = QAction("Delete", parent)
         menu.addAction(action_copy_key)
         menu.addAction(action_delete)
@@ -30,7 +31,7 @@ class TableContextMenu:
             # Add them to a set to prevent duplicates
             for index in sel.indexes():
                 rowid_set.add(index.sibling(index.row(), 0).data())
-            DBO.remove_games(rowid_set)
+            DAO.remove_games(rowid_set)
 
             # Refresh the model to show changes
             parent.table_view_content.model().sourceModel().select()
