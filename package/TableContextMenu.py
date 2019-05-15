@@ -1,7 +1,9 @@
 # A context menu for the table
-import pyperclip
 import webbrowser
+
+import pyperclip
 from PyQt5.QtWidgets import QMenu, QAction
+
 from package.DAO import DAO
 from package.ENV import ENV
 
@@ -65,19 +67,23 @@ class TableContextMenu:
             parent.table_view_content.model().sourceModel().select()
 
         # Launch a browser and search for the game on the selected platform
-
-        elif action.parent() == menu_search_game:
+        # Check if action is not None (i.e. user didn't click away from the menu) beforehand
+        elif action and action.parent() == menu_search_game:
             current_index = parent.table_view_content.selectionModel().currentIndex()
             game = current_index.sibling(current_index.row(), 1).data()
+            target_url = ''
 
             if action == action_search_steam:
-                webbrowser.open(ENV.steam_search_url.format(game), 2)
+                target_url = ENV.steam_search_url.format(game)
             elif action == action_search_gog:
-                webbrowser.open(ENV.gog_search_url.format(game), 2)
+                target_url = ENV.gog_search_url.format(game)
             elif action == action_search_itch:
-                webbrowser.open(ENV.itch_search_url.format(game), 2)
+                target_url = ENV.itch_search_url.format(game)
             elif action == action_search_origin:
-                webbrowser.open(ENV.origin_search_url.format(game), 2)
+                target_url = ENV.origin_search_url.format(game)
             elif action == action_search_uplay:
-                webbrowser.open(ENV.uplay_search_url.format(game), 2)
+                target_url = ENV.uplay_search_url.format(game)
 
+            # It appears that URL works fine with all special characters but ampersand; need to replace with url format
+            target_url = target_url.replace('&', '%26')
+            webbrowser.open(target_url, 2)
