@@ -7,6 +7,18 @@ No preview release is available as of yet. Feel free to contribute to the projec
 ## Intro 
 Do you have a lot of leftover keys from all that bundles but wonder what you can do with them? No worries, QSteamKeyManager (QSKM) is here to help you! With QSKM you can record, modify, and delete keys and URLs in an intuitive UI. You can also tag and categorize keys and see the corresponding game in the store. All data are stored in a database, making them less vulnerable to tampering.
 
+## Getting Started
+Since there is no official build as of yet, you need to install and compile the files yourself.
+(Assume you have installed Qt 5.12+ on your local machine already)
+
+1. Clone the project: `git clone https://github.com/l19980623/QSteamKeyManager.git`
+2. Install necessary dependencies: `cd QSteamKeyManager` then `pip install -r requirements.txt`
+3. The entry point of QSKM is `main.py` under the project directory
+
+I have also included the `.ui` files (under `\ui` folder) that can be modified in Qt Designer.
+You can then compile them into `.py` files by executing 
+`pyuic5 -x [INPUT_FILE].ui -o [OUTPUT_FILE].py`
+
 ## Functionality
 The following additions and improvements are being worked on:
 - Add/Remove entries to the table (done)

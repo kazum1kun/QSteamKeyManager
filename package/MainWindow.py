@@ -41,6 +41,9 @@ class MainWindow(QMainWindow, Ui_main_window):
         # User clicks on "Add" -> Check and add an entry to the table
         self.pushButton_add.clicked.connect(self.add_entry)
 
+        # User clicks on "About" -> "About QSKM" dialog shows
+        self.action_about_qskm.clicked.connect()
+
         # User enter or delete text from the search box -> Update model filter
         self.lineEdit_search.textChanged.connect(self.filter_entries)
 
@@ -122,9 +125,10 @@ class MainWindow(QMainWindow, Ui_main_window):
 
     # Bring up a context menu
     def show_table_context_menu(self, pos):
-        # menu = QMenu(self)
-        #
-        # # Define a few actions
-        # action
-        # menu.addAction(QAction())
         TableContextMenu.show(self, pos)
+
+    # Deter close events to the prompt
+    def closeEvent(self, event):
+        Prompts.show_exit_conf()
+        # If the window doesn't get closed at that point, ignore the event.
+        event.ignore()

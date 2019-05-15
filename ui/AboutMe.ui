@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+    <class>about_me</class>
+    <widget class="QDialog" name="about_me">
+        <property name="geometry">
+            <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>431</width>
+                <height>307</height>
+            </rect>
+        </property>
+        <property name="windowTitle">
+            <string>About QSteamKeyManager</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout">
+            <item>
+                <widget class="QLabel" name="gfx_logo">
+                    <property name="text">
+                        <string/>
+                    </property>
+                    <property name="pixmap">
+                        <pixmap>../res/QSKM_Logo_Long_400px.png</pixmap>
+                    </property>
+                </widget>
+            </item>
+            <item>
+                <widget class="QLabel" name="label_copyright">
+                    <property name="font">
+                        <font>
+                            <family>Arial</family>
+                            <pointsize>10</pointsize>
+                        </font>
+                    </property>
+                    <property name="text">
+                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;QSteamKeyManager
+                            (Alpha-0.0.6)&lt;/span&gt;&lt;br/&gt;Commit date: May 15, 2019&lt;/p&gt;&lt;p&gt;&lt;br/&gt;Powered
+                            by open-source software (OSS).&lt;br/&gt;&lt;/p&gt;&lt;p&gt;This software is distributed
+                            under GNU GPL v3 license.&lt;/p&gt;&lt;p&gt;Copyright © 2018-2019 &lt;a href=&quot;https://github.com/l19980623/&quot;&gt;&lt;span
+                            style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Xuanli Lin&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                        </string>
+                    </property>
+                </widget>
+            </item>
+            <item>
+                <spacer name="verticalSpacer">
+                    <property name="orientation">
+                        <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                        <size>
+                            <width>20</width>
+                            <height>40</height>
+                        </size>
+                    </property>
+                </spacer>
+            </item>
+            <item>
+                <layout class="QHBoxLayout" name="layout_bottom_button">
+                    <item>
+                        <widget class="QPushButton" name="pushButton_software">
+                            <property name="text">
+                                <string>OSS Used...</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item>
+                        <widget class="QPushButton" name="pushButton_license">
+                            <property name="text">
+                                <string>License...</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item>
+                        <widget class="QPushButton" name="pushButton_github">
+                            <property name="text">
+                                <string>View on Github...</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item>
+                        <widget class="QPushButton" name="pushButton_close">
+                            <property name="text">
+                                <string>Close</string>
+                            </property>
+                        </widget>
+                    </item>
+                </layout>
+            </item>
+        </layout>
+    </widget>
+    <resources/>
+    <connections/>
+</ui>

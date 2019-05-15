@@ -1,4 +1,3 @@
-# A collection of prompts used in QSKM
 from os.path import expanduser
 
 from PyQt5.QtWidgets import QWidget, QMessageBox, QFileDialog
@@ -7,12 +6,13 @@ from package.ENV import ENV
 
 
 class Prompts(QWidget):
+    """A collection of prompts used in QSKM."""
     def __init__(self):
         super().__init__()
 
-    # A file chooser prompt that asks for database file
     @staticmethod
     def show_db_chooser():
+        """A file chooser prompt that asks for database file."""
         db_chooser = QFileDialog()
         db_chooser.setWindowTitle('Open a QSKM Collection...')
         # User may only select the files that exists in the hdd
@@ -24,9 +24,9 @@ class Prompts(QWidget):
         if db_chooser.exec():
             return db_chooser.selectedFiles()[0]
 
-    # A prompt asking for confirmation on exit
     @staticmethod
     def show_exit_conf():
+        """A prompt asking for confirmation on exit."""
         exit_conf = QMessageBox()
         exit_conf.setIcon(QMessageBox.Question)
         exit_conf.setText('<b>Confirm Exit</b>')
