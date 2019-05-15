@@ -1,5 +1,6 @@
 # A context menu for the table
 import pyperclip
+import webbrowser
 from PyQt5.QtWidgets import QMenu, QAction
 from package.DAO import DAO
 
@@ -12,11 +13,14 @@ class TableContextMenu:
         action_copy_key = QAction("Copy Key", parent)
         action_copy_name = QAction("Copy Name", parent)
         action_copy_notes = QAction("Copy Notes", parent)
-        action_delete = QAction("Delete", parent)
+        action_delete = QAction("Remove", parent)
+        action_search_steam = QAction("Search on Steam", parent)
         menu.addAction(action_copy_key)
         menu.addAction(action_copy_name)
         menu.addAction(action_copy_notes)
         menu.addAction(action_delete)
+        menu.addSeparator()
+        menu.addAction(action_search_steam)
 
         # Present the menu on the mouse click point and perform accordingly
         action = menu.exec_(parent.table_view_content.viewport().mapToGlobal(pos))
@@ -48,4 +52,10 @@ class TableContextMenu:
 
             # Refresh the model to show changes
             parent.table_view_content.model().sourceModel().select()
+
+        # Launch a browser and search for the game on Steam
+        elif action == action_search_steam:
+            current_index = parent.table_view_content.selectionModel().currentIndex()
+            game = current_index.sibling(current_index.row(), 1).data()
+            webbrowser.open("https://store.steampowered.com/search/?term={}".format(game), 2)
 
