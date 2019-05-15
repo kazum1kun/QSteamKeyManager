@@ -1,6 +1,8 @@
 # A collection of prompts used in QSKM
-from PyQt5.QtWidgets import QWidget, QMessageBox, QFileDialog
 from os.path import expanduser
+
+from PyQt5.QtWidgets import QWidget, QMessageBox, QFileDialog
+
 from package.ENV import ENV
 
 
@@ -26,12 +28,14 @@ class Prompts(QWidget):
     @staticmethod
     def show_exit_conf():
         exit_conf = QMessageBox()
-        exit_conf.setText('<b>Save changes?</b>')
-        exit_conf.setInformativeText('Your Collection has been modified. '
-                                     'Do you wish to save the Collection before exit?')
-        exit_conf.setStandardButtons(QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel)
-        exit_conf.setDefaultButton(QMessageBox.Save)
-        exit_conf.setWindowTitle('Confirm Exit')
         exit_conf.setIcon(QMessageBox.Question)
+        exit_conf.setText('<b>Confirm Exit</b>')
+        exit_conf.setInformativeText('Do you want to exit?\n'
+                                     'All changes has been saved automatically.')
+        exit_conf.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+        exit_conf.setDefaultButton(QMessageBox.Yes)
+        exit_conf.setWindowTitle('Exiting QSKM')
+        user_choice = exit_conf.exec()
 
-
+        if user_choice == QMessageBox.Yes:
+            exit(0)

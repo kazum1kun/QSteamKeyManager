@@ -1,10 +1,10 @@
 # The main window of the QSteamKeyManager.
-from PyQt5.QtWidgets import QMainWindow, QActionGroup
-from PyQt5.QtSql import QSqlTableModel
 from PyQt5.QtCore import Qt, QSortFilterProxyModel, QRegExp
+from PyQt5.QtSql import QSqlTableModel
+from PyQt5.QtWidgets import QMainWindow, QActionGroup
 
-from package.ENV import ENV
 from package.DAO import DAO
+from package.ENV import ENV
 from package.Prompts import Prompts
 from package.TableContextMenu import TableContextMenu
 from ui.MainWindow import Ui_main_window
@@ -114,7 +114,6 @@ class MainWindow(QMainWindow, Ui_main_window):
             self.table_view_content.model().sourceModel().select()
 
     # Filter entries after keyword changes
-    # TODO: test behavior after inserting new entries
     def filter_entries(self):
         keyword = self.lineEdit_search.text().strip()
 
