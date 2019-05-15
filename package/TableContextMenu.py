@@ -3,6 +3,7 @@ import pyperclip
 import webbrowser
 from PyQt5.QtWidgets import QMenu, QAction
 from package.DAO import DAO
+from package.ENV import ENV
 
 
 class TableContextMenu:
@@ -63,9 +64,20 @@ class TableContextMenu:
             # Refresh the model to show changes
             parent.table_view_content.model().sourceModel().select()
 
-        # Launch a browser and search for the game on Steam
-        elif action == action_search_steam:
+        # Launch a browser and search for the game on the selected platform
+
+        elif action.parent() == menu_search_game:
             current_index = parent.table_view_content.selectionModel().currentIndex()
             game = current_index.sibling(current_index.row(), 1).data()
-            webbrowser.open("https://store.steampowered.com/search/?term={}".format(game), 2)
+
+            if action == action_search_steam:
+                webbrowser.open(ENV.steam_search_url.format(game), 2)
+            elif action == action_search_gog:
+                webbrowser.open(ENV.gog_search_url.format(game), 2)
+            elif action == action_search_itch:
+                webbrowser.open(ENV.itch_search_url.format(game), 2)
+            elif action == action_search_origin:
+                webbrowser.open(ENV.origin_search_url.format(game), 2)
+            elif action == action_search_uplay:
+                webbrowser.open(ENV.uplay_search_url.format(game), 2)
 
