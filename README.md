@@ -7,17 +7,19 @@ No preview release is available as of yet. Feel free to contribute to the projec
 ## Intro 
 Do you have a lot of leftover keys from all that bundles but wonder what you can do with them? No worries, QSteamKeyManager (QSKM) is here to help you! With QSKM you can record, modify, and delete keys and URLs in an intuitive UI. You can also tag and categorize keys and see the corresponding game in the store. All data are stored in a database, making them less vulnerable to tampering.
 
-## Functions
-As of now, QSKM is only a skeleton and do not provide much functionalities. The following additions and improvements are being worked on:
-- Add/Remove entries to the table (50% done/being worked on)
+## Functionality
+The following additions and improvements are being worked on:
+- Add/Remove entries to the table (done)
 - Add notes to entries (done)
 - Edit an entry (done)
 - Sort the list (done)
 - Search for anything in the table (done)
-- See a game in Steam (being worked on)
-- Copy key to the system clipboard
-- Import keys from an existing text file
+- Search for a game on multiple platforms (done)
+- Copy game, key, and notes to the system clipboard (done)
+- Import keys from an existing text file (being worked on)
 - Save the table to sql file (done)
+- Activate keys on various platforms (being worked on)
+    - Autodetect the key format??
 - Multi-language support
 - Tag and categorize entries
 - Encrypt local storage

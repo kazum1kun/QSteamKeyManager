@@ -1,4 +1,18 @@
 # Changelog
+## May 15, 2019
+Finally got some time after a incredibly busy semester!
+* [NEW] Now you can *remove* selected entries from the table. What an achievement!
+* [NEW] You can copy game name, key, or notes right from the table.
+* [NEW] You can search for the game on various PC platforms. For now we support
+Steam, GOG (only opens the main page because they don't have a search page), itch.io, 
+Origin, and Uplay. *EGS will NOT be supported in foreseeable future.*
+* [FIX] Now adding a game would no longer cause program crash. No monkeys harmed
+in the fixing process!
+* [DEV] A `requirements.txt` was added to facilitate dependency D/L process. Kudos to
+[@Dontcampy](https://github.com/Dontcampy) for pointing this out!
+
+As of now QSKM should have the same functionality as the old SKM. Hooray!
+
 ## February 14, 2019
 * [NEW] Search for anything! Hidden indexes as well! (oops)
 * [NEW] Clear search keywords by clicking, surprisingly, "Clear" button.
