@@ -12,7 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_about_me(object):
     def setupUi(self, about_me):
         about_me.setObjectName("about_me")
-        about_me.resize(431, 307)
+        about_me.setFixedSize(431, 307)
         self.verticalLayout = QtWidgets.QVBoxLayout(about_me)
         self.verticalLayout.setObjectName("verticalLayout")
         self.gfx_logo = QtWidgets.QLabel(about_me)

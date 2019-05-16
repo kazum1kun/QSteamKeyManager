@@ -1,8 +1,9 @@
 # The main window of the QSteamKeyManager.
 from PyQt5.QtCore import Qt, QSortFilterProxyModel, QRegExp
 from PyQt5.QtSql import QSqlTableModel
-from PyQt5.QtWidgets import QMainWindow, QActionGroup
+from PyQt5.QtWidgets import QMainWindow, QActionGroup, QDialog
 
+from package.AboutMe import AboutMe
 from package.DAO import DAO
 from package.ENV import ENV
 from package.Prompts import Prompts
@@ -42,7 +43,7 @@ class MainWindow(QMainWindow, Ui_main_window):
         self.pushButton_add.clicked.connect(self.add_entry)
 
         # User clicks on "About" -> "About QSKM" dialog shows
-        self.action_about_qskm.triggered.connect(Prompts.show_about_me)
+        self.action_about_qskm.triggered.connect(self.show_about_me)
 
         # User enter or delete text from the search box -> Update model filter
         self.lineEdit_search.textChanged.connect(self.filter_entries)
@@ -132,3 +133,12 @@ class MainWindow(QMainWindow, Ui_main_window):
         Prompts.show_exit_conf()
         # If the window doesn't get closed at that point, ignore the event.
         event.ignore()
+
+    @staticmethod
+    def show_about_me():
+        """Shows a 'About QSKM' page along with other nice stuff"""
+        about_me = QDialog()
+        ui = AboutMe()
+        ui.setupUi(about_me)
+        ui.setup_signals()
+        about_me.exec()
