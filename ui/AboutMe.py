@@ -17,7 +17,7 @@ class Ui_about_me(object):
         self.verticalLayout.setObjectName("verticalLayout")
         self.gfx_logo = QtWidgets.QLabel(about_me)
         self.gfx_logo.setText("")
-        self.gfx_logo.setPixmap(QtGui.QPixmap("../res/QSKM_Logo_Long_400px.png"))
+        self.gfx_logo.setPixmap(QtGui.QPixmap("res/QSKM_Logo_Long_400px.png"))
         self.gfx_logo.setObjectName("gfx_logo")
         self.verticalLayout.addWidget(self.gfx_logo)
         self.label_copyright = QtWidgets.QLabel(about_me)
@@ -57,14 +57,3 @@ class Ui_about_me(object):
         self.pushButton_license.setText(_translate("about_me", "License..."))
         self.pushButton_github.setText(_translate("about_me", "View on Github..."))
         self.pushButton_close.setText(_translate("about_me", "Close"))
-
-
-if __name__ == "__main__":
-    import sys
-
-    app = QtWidgets.QApplication(sys.argv)
-    about_me = QtWidgets.QDialog()
-    ui = Ui_about_me()
-    ui.setupUi(about_me)
-    about_me.show()
-    sys.exit(app.exec_())

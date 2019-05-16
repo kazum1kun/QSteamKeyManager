@@ -1,8 +1,9 @@
 from os.path import expanduser
 
-from PyQt5.QtWidgets import QWidget, QMessageBox, QFileDialog
+from PyQt5.QtWidgets import QWidget, QMessageBox, QFileDialog, QDialog
 
 from package.ENV import ENV
+from ui.AboutMe import Ui_about_me
 
 
 class Prompts(QWidget):
@@ -39,3 +40,10 @@ class Prompts(QWidget):
 
         if user_choice == QMessageBox.Yes:
             exit(0)
+
+    @staticmethod
+    def show_about_me():
+        about_me = QDialog()
+        ui = Ui_about_me()
+        ui.setupUi(about_me)
+        about_me.exec()

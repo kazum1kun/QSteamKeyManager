@@ -42,7 +42,7 @@ class MainWindow(QMainWindow, Ui_main_window):
         self.pushButton_add.clicked.connect(self.add_entry)
 
         # User clicks on "About" -> "About QSKM" dialog shows
-        self.action_about_qskm.clicked.connect()
+        self.action_about_qskm.triggered.connect(Prompts.show_about_me)
 
         # User enter or delete text from the search box -> Update model filter
         self.lineEdit_search.textChanged.connect(self.filter_entries)
