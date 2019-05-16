@@ -1,4 +1,18 @@
 # Changelog
+## Alpha 0.0.6 - Legal Stuff and Paperworks
+Committed on May 16, 2019. No production build.
+
+This update focuses on the legal stuff: things like "About Me" page, license,
+and more.
+
+* [NEW] Added an "About QSKM" page so you can clearly see that this app is clearly
+~~not ready for production~~ very awesome. Got it?
+    * Also I added a loicense (oi mate!) page to tell you that you can do basically
+    whatever you want with the app. 
+    * Also also I acknowledged a few open-sauce software, libraries, and cookbooks.
+    Without them QSKM will never taste the same!
+    * You can also find a link which conveniently take you back to the project page.
+
 ## Alpha 0.0.5 - The «Restoration» is Complete!
 Committed on May 15, 2019. No production build.
 
