@@ -12,7 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_about_me(object):
     def setupUi(self, about_me):
         about_me.setObjectName("about_me")
-        about_me.setFixedSize(431, 307)
+        about_me.resize(431, 307)
         self.verticalLayout = QtWidgets.QVBoxLayout(about_me)
         self.verticalLayout.setObjectName("verticalLayout")
         self.gfx_logo = QtWidgets.QLabel(about_me)
@@ -25,6 +25,7 @@ class Ui_about_me(object):
         font.setFamily("Arial")
         font.setPointSize(10)
         self.label_copyright.setFont(font)
+        self.label_copyright.setOpenExternalLinks(True)
         self.label_copyright.setObjectName("label_copyright")
         self.verticalLayout.addWidget(self.label_copyright)
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
@@ -46,14 +47,31 @@ class Ui_about_me(object):
         self.verticalLayout.addLayout(self.layout_bottom_button)
 
         self.retranslateUi(about_me)
+        self.pushButton_close.clicked.connect(about_me.close)
         QtCore.QMetaObject.connectSlotsByName(about_me)
 
     def retranslateUi(self, about_me):
         _translate = QtCore.QCoreApplication.translate
         about_me.setWindowTitle(_translate("about_me", "About QSteamKeyManager"))
-        self.label_copyright.setText(_translate("about_me",
-                                                "<html><head/><body><p><span style=\" font-weight:600;\">QSteamKeyManager (Alpha-0.0.6)</span><br/>Commit date: May 15, 2019</p><p><br/>Powered by open-source software (OSS).<br/></p><p>This software is distributed under GNU GPL v3 license.</p><p>Copyright © 2018-2019 <a href=\"https://github.com/l19980623/\"><span style=\" text-decoration: underline; color:#0000ff;\">Xuanli Lin</span></a>.</p></body></html>"))
+        self.label_copyright.setText(
+            _translate("about_me", "<html><head/><body><p><span style=\" font-weight:600;\">QSteamKeyManager\n"
+                                   "                            (Alpha-0.0.6)</span><br/>Commit date: May 15, 2019</p><p><br/>Powered\n"
+                                   "                            by open-source software (OSS).<br/></p><p>This software is distributed\n"
+                                   "                            under GNU GPL v3 license.</p><p>Copyright © 2018-2019 <a href=\"https://github.com/l19980623/\"><span\n"
+                                   "                            style=\" text-decoration: underline; color:#0000ff;\">Xuanli Lin</span></a>.</p></body></html>\n"
+                                   "                        "))
         self.pushButton_software.setText(_translate("about_me", "OSS Used..."))
         self.pushButton_license.setText(_translate("about_me", "License..."))
         self.pushButton_github.setText(_translate("about_me", "View on Github..."))
         self.pushButton_close.setText(_translate("about_me", "Close"))
+
+
+if __name__ == "__main__":
+    import sys
+
+    app = QtWidgets.QApplication(sys.argv)
+    about_me = QtWidgets.QDialog()
+    ui = Ui_about_me()
+    ui.setupUi(about_me)
+    about_me.show()
+    sys.exit(app.exec_())

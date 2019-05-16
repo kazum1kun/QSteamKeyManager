@@ -12,7 +12,7 @@ from PyQt5 import QtCore, QtWidgets
 class Ui_Oss_Used(object):
     def setupUi(self, Oss_Used):
         Oss_Used.setObjectName("Oss_Used")
-        Oss_Used.setFixedSize(542, 254)
+        Oss_Used.resize(542, 254)
         self.verticalLayout = QtWidgets.QVBoxLayout(Oss_Used)
         self.verticalLayout.setObjectName("verticalLayout")
         self.label_heading = QtWidgets.QLabel(Oss_Used)
@@ -76,10 +76,8 @@ class Ui_Oss_Used(object):
         self.layout_bottom.addWidget(self.pushButton_close)
         self.verticalLayout.addLayout(self.layout_bottom)
 
-        self.pushButton_close.clicked.connect(Oss_Used.close)
-
         self.retranslateUi(Oss_Used)
-
+        self.pushButton_close.clicked.connect(Oss_Used.close)
         QtCore.QMetaObject.connectSlotsByName(Oss_Used)
 
     def retranslateUi(self, Oss_Used):
@@ -132,7 +130,6 @@ class Ui_Oss_Used(object):
 
 if __name__ == "__main__":
     import sys
-
     app = QtWidgets.QApplication(sys.argv)
     Oss_Used = QtWidgets.QDialog()
     ui = Ui_Oss_Used()

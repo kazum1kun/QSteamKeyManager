@@ -7,7 +7,7 @@
                 <x>0</x>
                 <y>0</y>
                 <width>542</width>
-                <height>261</height>
+                <height>254</height>
             </rect>
         </property>
         <property name="windowTitle">
@@ -165,5 +165,22 @@
         </layout>
     </widget>
     <resources/>
-    <connections/>
+    <connections>
+        <connection>
+            <sender>pushButton_close</sender>
+            <signal>clicked()</signal>
+            <receiver>Oss_Used</receiver>
+            <slot>close()</slot>
+            <hints>
+                <hint type="sourcelabel">
+                    <x>483</x>
+                    <y>227</y>
+                </hint>
+                <hint type="destinationlabel">
+                    <x>270</x>
+                    <y>126</y>
+                </hint>
+            </hints>
+        </connection>
+    </connections>
 </ui>

@@ -17,6 +17,9 @@ class ENV:
     # Default db file chooser path (used in conjunction with expanduser() func)
     default_db_folder_path = '~/Documents/'
 
+    # GitHub project page
+    github_project_page = 'https://github.com/l19980623/QSteamKeyManager'
+
     # WEB URL TEMPLATES
     # Here you can find predefined web URLs to many popular storefronts.
     # Used to search and activate games on these stores

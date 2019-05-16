@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+    <class>License</class>
+    <widget class="QDialog" name="License">
+        <property name="geometry">
+            <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>595</width>
+                <height>583</height>
+            </rect>
+        </property>
+        <property name="windowTitle">
+            <string>QSteamKeyManager License</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout">
+            <item>
+                <widget class="QTextBrowser" name="textBrowser_license">
+                    <property name="font">
+                        <font>
+                            <family>Times New Roman</family>
+                            <pointsize>9</pointsize>
+                        </font>
+                    </property>
+                    <property name="acceptDrops">
+                        <bool>false</bool>
+                    </property>
+                    <property name="source">
+                        <url>
+                            <string>file:///C:/Users/kilve/PycharmProjects/QSteamKeyManager/res/GNU_GPL_v3.html</string>
+                        </url>
+                    </property>
+                    <property name="openExternalLinks">
+                        <bool>true</bool>
+                    </property>
+                </widget>
+            </item>
+            <item>
+                <layout class="QHBoxLayout" name="horizontalLayout">
+                    <item>
+                        <spacer name="horizontalSpacer">
+                            <property name="orientation">
+                                <enum>Qt::Horizontal</enum>
+                            </property>
+                            <property name="sizeHint" stdset="0">
+                                <size>
+                                    <width>40</width>
+                                    <height>20</height>
+                                </size>
+                            </property>
+                        </spacer>
+                    </item>
+                    <item>
+                        <widget class="QPushButton" name="pushButton_close">
+                            <property name="text">
+                                <string>Close</string>
+                            </property>
+                        </widget>
+                    </item>
+                </layout>
+            </item>
+        </layout>
+    </widget>
+    <resources/>
+    <connections>
+        <connection>
+            <sender>pushButton_close</sender>
+            <signal>clicked()</signal>
+            <receiver>License</receiver>
+            <slot>close()</slot>
+            <hints>
+                <hint type="sourcelabel">
+                    <x>536</x>
+                    <y>556</y>
+                </hint>
+                <hint type="destinationlabel">
+                    <x>297</x>
+                    <y>291</y>
+                </hint>
+            </hints>
+        </connection>
+    </connections>
+</ui>
