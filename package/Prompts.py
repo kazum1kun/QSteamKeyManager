@@ -1,5 +1,6 @@
 from os.path import expanduser
 
+import magic
 from PyQt5.QtWidgets import QWidget, QMessageBox, QFileDialog
 
 from package.ENV import ENV
@@ -42,7 +43,13 @@ class Prompts(QWidget):
 
         # Return the full path to file back to main window if the execution was successful
         if file_chooser.exec():
-            return file_chooser.selectedFiles()[0]
+            checker = magic.Magic(mime=True)
+            print(checker.from_file(file_chooser.selectedFiles()[0]))
+            # Reference:    .xls    	application/vnd.ms-excel
+            #               .xlsx       application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+            #               .txt        text/plain
+            #               .db         application/x-sqlite3  ------> applicable to only sqlite db
+        #   return file_chooser.selectedFiles()[0]
 
     @staticmethod
     def show_exit_conf():
