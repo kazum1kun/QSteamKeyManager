@@ -128,10 +128,10 @@ class MainWindow(QMainWindow, Ui_main_window):
     def show_table_context_menu(self, pos):
         TableContextMenu.show(self, pos)
 
-    # Deter close events to the prompt
+    # Detour close events to the prompt
     def closeEvent(self, event):
         Prompts.show_exit_conf()
-        # If the window doesn't get closed at that point, ignore the event.
+        # If the window doesn't get closed at this point, ignore the event.
         event.ignore()
 
     @staticmethod

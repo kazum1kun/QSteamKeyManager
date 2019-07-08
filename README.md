@@ -20,21 +20,24 @@ You can then compile them into `.py` files by executing
 `pyuic5 -x [INPUT_FILE].ui -o [OUTPUT_FILE].py`
 
 ## Functionality
-The following additions and improvements are being worked on:
-- Add/Remove entries to the table (done)
-- Add notes to entries (done)
-- Edit an entry (done)
-- Sort the list (done)
-- Search for anything in the table (done)
-- Search for a game on multiple platforms (done)
-- Copy game, key, and notes to the system clipboard (done)
-- Import keys from an existing text file (being worked on)
-- Save the table to sql file (done)
-- Activate keys on various platforms (being worked on)
-    - Autodetect the key format??
+As of now, the QSKM supports the following operations:
+- Add/Remove entries to the table
+- Add notes to entries
+- Edit an entry
+- Sort the list
+- Search for anything in the table
+- Search for a game on multiple platforms
+- Copy game, key, and notes to the system clipboard
+- Save the table to sql file
+
+Additional functionality is being worked on:
+- Import keys from an existing text file (in progress)
+- Activate keys on various platforms (in progress)
+    - Autodetect the key format?
 - Multi-language support
 - Tag and categorize entries
 - Encrypt local storage
+
 
 ## Issues? 
 Should you encounter bugs or have suggestions, feel free to post them in the [Issues](https://github.com/l19980623/QSteamKeyManager/issues) tab. 
