@@ -2,9 +2,10 @@
 
 # Form implementation generated from reading ui file 'C:\Users\kilve\PycharmProjects\QSteamKeyManager\ui\OssUsed.ui'
 #
-# Created by: PyQt5 UI code generator 5.12.1
+# Created by: PyQt5 UI code generator 5.13.0
 #
 # WARNING! All changes made in this file will be lost!
+
 
 from PyQt5 import QtCore, QtWidgets
 
@@ -63,7 +64,7 @@ class Ui_Oss_Used(object):
         self.tableWidget.setItem(3, 1, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setItem(3, 2, item)
-        self.tableWidget.horizontalHeader().setDefaultSectionSize(180)
+        self.tableWidget.horizontalHeader().setDefaultSectionSize(200)
         self.tableWidget.horizontalHeader().setStretchLastSection(True)
         self.tableWidget.verticalHeader().setVisible(False)
         self.verticalLayout.addWidget(self.tableWidget)
@@ -83,7 +84,7 @@ class Ui_Oss_Used(object):
     def retranslateUi(self, Oss_Used):
         _translate = QtCore.QCoreApplication.translate
         Oss_Used.setWindowTitle(_translate("Oss_Used", "Open-source Software Used"))
-        self.label_heading.setText(_translate("Oss_Used", "The following software and libraries were used by QSKM:"))
+        self.label_heading.setText(_translate("Oss_Used", "The following software and libraries are used by QSKM:"))
         item = self.tableWidget.verticalHeaderItem(0)
         item.setText(_translate("Oss_Used", "1"))
         item = self.tableWidget.verticalHeaderItem(1)

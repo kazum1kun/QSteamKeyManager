@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'ui\MainWindow.ui'
+# Form implementation generated from reading ui file 'C:\Users\kilve\PycharmProjects\QSteamKeyManager\ui\MainWindow.ui'
 #
-# Created by: PyQt5 UI code generator 5.11.3
+# Created by: PyQt5 UI code generator 5.13.0
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+
+from PyQt5 import QtCore, QtWidgets
+
 
 class Ui_main_window(object):
     def setupUi(self, main_window):
@@ -100,7 +102,10 @@ class Ui_main_window(object):
         self.action_exit = QtWidgets.QAction(main_window)
         self.action_exit.setMenuRole(QtWidgets.QAction.QuitRole)
         self.action_exit.setObjectName("action_exit")
+        self.action_import_from_file = QtWidgets.QAction(main_window)
+        self.action_import_from_file.setObjectName("action_import_from_file")
         self.menu_file.addAction(self.action_open_collection)
+        self.menu_file.addAction(self.action_import_from_file)
         self.menu_file.addAction(self.action_save_changes)
         self.menu_file.addAction(self.action_export)
         self.menu_file.addSeparator()
@@ -140,6 +145,7 @@ class Ui_main_window(object):
         self.action_about_qskm.setText(_translate("main_window", "About QSteamKeyManager..."))
         self.action_check_for_updates.setText(_translate("main_window", "Check for Updates..."))
         self.action_exit.setText(_translate("main_window", "Exit"))
+        self.action_import_from_file.setText(_translate("main_window", "Import From File..."))
 
 
 if __name__ == "__main__":
@@ -150,4 +156,3 @@ if __name__ == "__main__":
     ui.setupUi(main_window)
     main_window.show()
     sys.exit(app.exec_())
-

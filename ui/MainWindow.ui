@@ -148,6 +148,7 @@
      <string>File</string>
     </property>
     <addaction name="action_open_collection"/>
+       <addaction name="action_import_from_file"/>
     <addaction name="action_save_changes"/>
     <addaction name="action_export"/>
     <addaction name="separator"/>
@@ -238,6 +239,11 @@
     <enum>QAction::QuitRole</enum>
    </property>
   </action>
+     <action name="action_import_from_file">
+         <property name="text">
+             <string>Import From File...</string>
+         </property>
+     </action>
  </widget>
  <resources/>
  <connections/>
