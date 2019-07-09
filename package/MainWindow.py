@@ -15,6 +15,9 @@ class MainWindow(QMainWindow, Ui_main_window):
     def __init__(self):
         super().__init__()
 
+        # Declare some important instance attrs
+        self.proxy_model = None
+
         # Load UI layout defined in the ui file
         self.setupUi(self)
 
@@ -34,7 +37,7 @@ class MainWindow(QMainWindow, Ui_main_window):
     # Define events (signals) in the main window
     def setup_signals(self):
         # User clicks on "Open Collection" -> Show a file chooser prompt (limited to .db type)
-        self.action_open_collection.triggered.connect(Prompts.show_db_chooser)
+        self.action_open_collection.triggered.connect(self.load_db)
 
         # User clicks on "Import From File" -> Shows a file chooser prompt
         self.action_import_from_file.triggered.connect(Prompts.show_file_chooser)
@@ -61,26 +64,31 @@ class MainWindow(QMainWindow, Ui_main_window):
     # Set up the model in the table and link it to the view
     def setup_model(self):
         # Add a filter model to filter (search) items, which in turn includes a SQL model
-        proxy_model = QSortFilterProxyModel()
+        self.proxy_model = QSortFilterProxyModel()
         # Set search column to -1 to search from all columns
         # this will also search for entry's id which might not be a good idea
         # TODO: maybe reimplement QSFPM to have custom columns?
-        proxy_model.setFilterKeyColumn(-1)
+        self.proxy_model.setFilterKeyColumn(-1)
 
+        # Set up underlying SQL model
+        self.setup_sql_model(None)
+
+        # Link table model to the table view
+        self.table_view_content.setModel(self.proxy_model)
+
+    def setup_sql_model(self, db_path):
+        """Set up an SQL model to plug into the proxy model"""
         # Set up a SQL model
-        model = QSqlTableModel(self, DAO.get_or_create_db())
+        model = QSqlTableModel(self, DAO.get_or_create_db(db_path))
         model.setTable(ENV.game_table_name)
         model.setEditStrategy(QSqlTableModel.OnRowChange)
-        proxy_model.setSourceModel(model)
+        self.proxy_model.setSourceModel(model)
 
         # Customize the name of headers
         model.setHeaderData(1, Qt.Horizontal, 'Game')
         model.setHeaderData(2, Qt.Horizontal, 'Key/URL')
         model.setHeaderData(3, Qt.Horizontal, 'Notes')
         model.select()
-
-        # Link table model to the table view
-        self.table_view_content.setModel(proxy_model)
 
     # Tweak some setting in the view
     def setup_view(self):
@@ -145,3 +153,7 @@ class MainWindow(QMainWindow, Ui_main_window):
         ui.setupUi(about_me)
         ui.setup_signals()
         about_me.exec()
+
+    def load_db(self):
+        db_path = Prompts.show_db_chooser()
+        self.setup_sql_model(db_path)

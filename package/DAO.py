@@ -1,6 +1,7 @@
 # Database Operation object that handles initialization of the db and CRUD operations on records.
 import sqlite3
 from sqlite3 import Error
+
 from PyQt5 import QtSql
 
 from package.ENV import ENV
@@ -75,15 +76,22 @@ class DAO:
 
     # Auxiliary method to get existing connection or create a new one if not existing
     @classmethod
-    def get_or_create_db(cls):
+    def get_or_create_db(cls, db_path):
         if cls.db is None:
             try:
-                cls.db = QtSql.QSqlDatabase.addDatabase('QSQLITE')
-                cls.db.setDatabaseName(ENV.rel_db_path)
+                # If no db_path is supplied, load the default on
+                if db_path is None:
+                    cls.db = QtSql.QSqlDatabase.addDatabase('QSQLITE')
+                    cls.db.setDatabaseName(ENV.rel_db_path)
+                else:
+                    cls.db.setDatabaseName(db_path)
                 cls.db.open()
                 return cls.db
             except Error as e:
                 # TODO: further error handling
                 print(e)
         else:
+            if db_path is not None:
+                cls.db.setDatabaseName(db_path)
+                cls.db.open()
             return cls.db
