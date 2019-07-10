@@ -3,6 +3,8 @@
 
 
 class ENV:
+    """Some 'environmental variables' that should be consistent across the board"""
+    # --- DATABASE ---
     # Name of the database file (with extension)
     db_name = 'qskm.db'
 
@@ -17,6 +19,7 @@ class ENV:
     # Default db file chooser path (used in conjunction with expanduser() func)
     default_db_folder_path = '~/Documents/'
 
+    # --- URL ---
     # GitHub project page
     github_project_page = 'https://github.com/l19980623/QSteamKeyManager'
 
@@ -47,3 +50,29 @@ class ENV:
     # ----       then use IP address to determine the store country, which is better than hard-coding country in URL
     uplay_search_url = 'https://store.ubi.com/search/?q={}'
 
+    # --- Regex ---
+    # Steam keys
+    # Pattern: AAAAA-BBBBB-CCCCC (other formats exists but are very rare nowadays)
+    steam_key_regex = '[a-zA-Z0-9]{5}-[a-zA-Z0-9]{5}-[a-zA-Z0-9]{5}'
+
+    # GoG keys
+    # Patterns: AAAAA-BBBBB-CCCCC-DDDDD
+    #           abcdefgh
+    gog_key_regex = '([a-zA-Z0-9]{5}-[a-zA-Z0-9]{5}-[a-zA-Z0-9]{5}-[a-zA-Z0-9]{5})|([a-zA-Z0-9]{8})'
+
+    # HumbleBundle gifts
+    # Pattern:  https://www.humblebundle.com/gift?key=abcdefghijklmnop
+    hb_gift_regex = 'http(s)?://www\\.humblebundle\\.com/gift\\?key=[a-zA-Z0-9]{16}'
+
+    # Itch.io keys
+    # Pattern: itch.io/????? ---> not sure about this, but all of them begins with itch.io domain name
+    itch_key_regex = 'itch\\.io\\/\\S+'
+
+    # Origin keys
+    # Pattern: ABCD-EFGH-HIJK-LMNO
+    origin_key_regex = '[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}'
+
+    # Uplay keys
+    # Patterns: AAAA-BBBB-CCCC-DDDD
+    #           AAA-BBBB-CCCC-DDDD-EEEE
+    uplay_key_regex = '([a-zA-Z0-9]{3}-)?[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}'
