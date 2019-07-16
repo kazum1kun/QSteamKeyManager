@@ -53,26 +53,26 @@ class ENV:
     # --- Regex ---
     # Steam keys
     # Pattern: AAAAA-BBBBB-CCCCC (other formats exists but are very rare nowadays)
-    steam_key_regex = '[a-zA-Z0-9]{5}-[a-zA-Z0-9]{5}-[a-zA-Z0-9]{5}'
+    steam_key_regex = r'[a-zA-Z0-9]{5}-[a-zA-Z0-9]{5}-[a-zA-Z0-9]{5}'
 
     # GoG keys
     # Patterns: AAAAA-BBBBB-CCCCC-DDDDD
     #           abcdefgh
-    gog_key_regex = '([a-zA-Z0-9]{5}-[a-zA-Z0-9]{5}-[a-zA-Z0-9]{5}-[a-zA-Z0-9]{5})|([a-zA-Z0-9]{8})'
+    gog_key_regex = r'([a-zA-Z0-9]{5}-[a-zA-Z0-9]{5}-[a-zA-Z0-9]{5}-[a-zA-Z0-9]{5})|([a-zA-Z0-9]{8})'
 
     # HumbleBundle gifts
     # Pattern:  https://www.humblebundle.com/gift?key=abcdefghijklmnop
-    hb_gift_regex = 'http(s)?://www\\.humblebundle\\.com/gift\\?key=[a-zA-Z0-9]{16}'
+    hb_gift_regex = r'http(s)?://www\.humblebundle\.com/gift\?key=[a-zA-Z0-9]{16}'
 
     # Itch.io keys
     # Pattern: itch.io/????? ---> not sure about this, but all of them begins with itch.io domain name
-    itch_key_regex = 'itch\\.io\\/\\S+'
+    itch_key_regex = r'itch\.io\/\S+'
 
     # Origin keys
     # Pattern: ABCD-EFGH-HIJK-LMNO
-    origin_key_regex = '[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}'
+    origin_key_regex = r'[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}'
 
     # Uplay keys
     # Patterns: AAAA-BBBB-CCCC-DDDD
     #           AAA-BBBB-CCCC-DDDD-EEEE
-    uplay_key_regex = '([a-zA-Z0-9]{3}-)?[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}'
+    uplay_key_regex = r'([a-zA-Z0-9]{3}-)?[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}'

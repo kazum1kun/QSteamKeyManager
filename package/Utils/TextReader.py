@@ -18,20 +18,20 @@ class TextReader:
             delimiter = ';'
 
         # Read line by line and
-        with open(input_file) as fp:
-            file_content = fp.readlines()
+        with open(input_file, encoding='utf-8') as fp:
+            file_content = fp.read().splitlines()
 
             # Read a few lines and determine if (1) the delimiter is valid, and (2) the arrangement
             # of the elements.
             for i in range(0, len(file_content)):
                 # Skip empty lines
-                if not file_content[i].strip():
+                if len(file_content[i].strip()) != 0:
                     tokens = file_content[i].split(delimiter)
 
                     # Parse the file if it finds a line containing 2 or 3 entries
                     if len(tokens) == 2 or len(tokens) == 3:
-                        col_key = TextReader.determine_column_arrangement(file_content, delimiter, i)
-                        return TextReader.parse_file(file_content, delimiter, i, col_key)
+                        col_key = TextReader.__determine_column_arrangement(file_content, delimiter, i)
+                        return TextReader.__parse_file(file_content, delimiter, i, col_key)
                     # If it's smaller than 2 or greater than three, definitely it's not the right separator...
                     else:
                         continue
@@ -39,33 +39,33 @@ class TextReader:
         return []
 
     @staticmethod
-    def determine_column_arrangement(content, delimiter, first_row):
+    def __determine_column_arrangement(content, delimiter, first_row):
         """Here we a line and figure out which column are the key/game on"""
         # Only col 1 and 2 will be tested. Col 3 (if exists) will always be regarded as comments
         tokens = content[first_row].split(delimiter)
         col_key = -1
 
         # Check each cols against predefined regex
-        if (re.match(ENV.steam_key_regex, tokens[0]) or
-                re.match(ENV.gog_key_regex, tokens[0]) or
-                re.match(ENV.hb_gift_regex, tokens[0]) or
-                re.match(ENV.itch_key_regex, tokens[0]) or
-                re.match(ENV.origin_key_regex, tokens[0]) or
-                re.match(ENV.uplay_key_regex, tokens[0])):
+        if (re.findall(ENV.steam_key_regex, tokens[0]) or
+                re.findall(ENV.gog_key_regex, tokens[0]) or
+                re.findall(ENV.hb_gift_regex, tokens[0]) or
+                re.findall(ENV.itch_key_regex, tokens[0]) or
+                re.findall(ENV.origin_key_regex, tokens[0]) or
+                re.findall(ENV.uplay_key_regex, tokens[0])):
             col_key = 0
-        elif (re.match(ENV.steam_key_regex, tokens[1]) or
-              re.match(ENV.gog_key_regex, tokens[1]) or
-              re.match(ENV.hb_gift_regex, tokens[1]) or
-              re.match(ENV.itch_key_regex, tokens[1]) or
-              re.match(ENV.origin_key_regex, tokens[1]) or
-              re.match(ENV.uplay_key_regex, tokens[1])):
+        elif (re.findall(ENV.steam_key_regex, tokens[1]) or
+              re.findall(ENV.gog_key_regex, tokens[1]) or
+              re.findall(ENV.hb_gift_regex, tokens[1]) or
+              re.findall(ENV.itch_key_regex, tokens[1]) or
+              re.findall(ENV.origin_key_regex, tokens[1]) or
+              re.findall(ENV.uplay_key_regex, tokens[1])):
             col_key = 1
         # TODO If none matches, ask user which col is the key resided
 
         return col_key
 
     @staticmethod
-    def parse_file(content, delimiter, start, col_key):
+    def __parse_file(content, delimiter, start, col_key):
         """Here we do actual file parsing."""
         # Set up an list to store results
         game_key_list = []
