@@ -80,10 +80,10 @@ class TextReader:
             tokens = content[i].split(delimiter)
 
             if len(tokens) >= 2:
-                game_entry = {"game": tokens[col_game],
-                              "key": tokens[col_key]}
+                game_entry = {'game': tokens[col_game],
+                              'key': tokens[col_key]}
                 if len(tokens) == 3:
-                    game_entry["notes"] = tokens[2]
+                    game_entry['notes'] = tokens[2]
 
                 game_key_list.append(game_entry)
 

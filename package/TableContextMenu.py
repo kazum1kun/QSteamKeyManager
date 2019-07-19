@@ -5,7 +5,7 @@ import pyperclip
 from PyQt5.QtWidgets import QMenu, QAction
 
 from package.ENV import ENV
-from package.Utils.DAO import DAO
+from package.utils.DAO import DAO
 
 
 class TableContextMenu:
