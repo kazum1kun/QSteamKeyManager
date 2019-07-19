@@ -1,4 +1,5 @@
 # The main window of the QSteamKeyManager.
+import magic
 from PyQt5.QtCore import Qt, QSortFilterProxyModel, QRegExp
 from PyQt5.QtSql import QSqlTableModel
 from PyQt5.QtWidgets import QMainWindow, QActionGroup, QDialog
@@ -8,6 +9,7 @@ from package.ENV import ENV
 from package.Prompts import Prompts
 from package.TableContextMenu import TableContextMenu
 from package.utils.DAO import DAO
+from package.utils.TextReader import TextReader
 from ui.MainWindow import Ui_main_window
 
 
@@ -157,3 +159,26 @@ class MainWindow(QMainWindow, Ui_main_window):
     def load_db(self):
         db_path = Prompts.show_db_chooser()
         self.setup_sql_model(db_path)
+
+    def load_file(self):
+        """Invoke the window to read, parse and load user-selected files"""
+        user_file = Prompts.show_file_chooser()
+        parsed_file = []
+
+        checker = magic.Magic(mime=True)
+        file_mime_type = checker.from_file(user_file)
+        # Reference:    .xls    	application/vnd.ms-excel
+        #               .xlsx       application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+        #               .txt        text/plain
+        #               .db         application/x-sqlite3  ------> applicable to only sqlite db
+        if file_mime_type == 'text/plain':
+            parsed_file = TextReader.read(user_file, ';')
+        # TODO process other file type here
+
+        # TODO Ask user if they want to append it to the Collection or make a new one
+        # In case the user wants a new one, create a new table
+        DAO.create_table('db\\test.db')
+
+        # Since empty notes are already taken care of in TextReader, we can safely
+        for items in parsed_file:
+            DAO.add_a_game(items['game'], items['key'], items['notes'])

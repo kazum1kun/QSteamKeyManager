@@ -1,10 +1,8 @@
 from os.path import expanduser
 
-import magic
 from PyQt5.QtWidgets import QWidget, QMessageBox, QFileDialog
 
 from package.ENV import ENV
-from package.utils.TextReader import TextReader
 
 
 class Prompts(QWidget):
@@ -44,15 +42,7 @@ class Prompts(QWidget):
 
         # Return the full path to file back to main window if the execution was successful
         if file_chooser.exec():
-            user_file = file_chooser.selectedFiles()[0]
-            checker = magic.Magic(mime=True)
-            file_mime_type = checker.from_file(user_file)
-            # Reference:    .xls    	application/vnd.ms-excel
-            #               .xlsx       application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
-            #               .txt        text/plain
-            #               .db         application/x-sqlite3  ------> applicable to only sqlite db
-            if file_mime_type == 'text/plain':
-                return TextReader.read(user_file, ';')
+            return file_chooser.selectedFiles()[0]
 
     @staticmethod
     def show_exit_conf():

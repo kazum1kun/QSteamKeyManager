@@ -81,7 +81,8 @@ class TextReader:
 
             if len(tokens) >= 2:
                 game_entry = {'game': tokens[col_game],
-                              'key': tokens[col_key]}
+                              'key': tokens[col_key],
+                              'notes': ''}
                 if len(tokens) == 3:
                     game_entry['notes'] = tokens[2]
 
