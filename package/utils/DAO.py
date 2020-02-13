@@ -8,16 +8,14 @@ from package.ENV import ENV
 
 
 class DAO:
-    # Placeholder database connection object
-    db = None
+    # Initially, a database is created in memory until the user save to/load from a file on disk
+    # The following is a placeholder for actual connections
     conn = None
 
     # Initialize a table where all entries will be stored
     @classmethod
-    def create_table(cls, db_path):
-        cls.__clear_conn()
-        conn = cls.__get_or_create_conn(db_path)
-
+    def create_table(cls):
+        conn = cls.__get_or_create_conn()
         cur = conn.cursor()
 
         # id in the table is for "bookkeeping" use only and should be transparent to the user
@@ -67,32 +65,26 @@ class DAO:
     # Auxiliary method to get existing connection or create a new one if not existing
     @classmethod
     def get_or_create_db(cls, db_path):
-        if cls.db is None:
-            try:
-                # If no db_path is supplied, load the default on
-                if db_path is None:
-                    cls.db = QtSql.QSqlDatabase.addDatabase('QSQLITE')
-                    cls.db.setDatabaseName(ENV.rel_db_path)
-                else:
-                    cls.db.setDatabaseName(db_path)
-                cls.db.open()
-                return cls.db
-            except Error as e:
-                # TODO: further error handling
-                print(e)
-        else:
-            if db_path is not None:
+        try:
+            # If no db_path is supplied, load the default on
+            if db_path is None:
+                cls.db = QtSql.QSqlDatabase.addDatabase('QSQLITE')
+                cls.db.setDatabaseName(':memory:')
+            else:
                 cls.db.setDatabaseName(db_path)
-                cls.db.open()
+            cls.db.open()
             return cls.db
+        except Error as e:
+            # TODO: further error handling
+            print(e)
 
     @classmethod
     # Auxiliary method to get existing connection or create a new one if not existing
-    def __get_or_create_conn(cls, db_path):
+    def __get_or_create_conn(cls, db_path=None):
         if cls.conn is None:
             if db_path is None:
                 try:
-                    cls.conn = sqlite3.connect(ENV.rel_db_path)
+                    cls.conn = sqlite3.connect(':memory:')
                 except Error as e:
                     print(e)
             else:

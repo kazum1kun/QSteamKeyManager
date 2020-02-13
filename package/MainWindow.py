@@ -42,7 +42,7 @@ class MainWindow(QMainWindow, Ui_main_window):
         self.action_open_collection.triggered.connect(self.load_db)
 
         # User clicks on "Import From File" -> Shows a file chooser prompt
-        self.action_import_from_file.triggered.connect(Prompts.show_file_chooser)
+        self.action_import_from_file.triggered.connect(self.load_file)
 
         # User clicks on "Exit" -> "Confirm Exit" prompt
         self.action_exit.triggered.connect(Prompts.show_exit_conf)
@@ -177,8 +177,11 @@ class MainWindow(QMainWindow, Ui_main_window):
 
         # TODO Ask user if they want to append it to the Collection or make a new one
         # In case the user wants a new one, create a new table
-        DAO.create_table('db\\test.db')
+        DAO.create_table()
 
         # Since empty notes are already taken care of in TextReader, we can safely
         for items in parsed_file:
             DAO.add_a_game(items['game'], items['key'], items['notes'])
+
+        # Refresh the view to show newly imported keys
+        self.table_view_content.model().sourceModel().select()
