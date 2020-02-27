@@ -81,8 +81,8 @@ class MainWindow(QMainWindow, Ui_main_window):
     def setup_sql_model(self, db_path):
         """Set up an SQL model to plug into the proxy model"""
         # Set up a SQL model
-        model = QSqlTableModel(self, DAO.get_or_create_db(db_path))
-        model.setTable(ENV.game_table_name)
+        model = QSqlTableModel(self, DAO.get_or_create_conn(db_path))
+        model.setTable('Games')
         model.setEditStrategy(QSqlTableModel.OnRowChange)
         self.proxy_model.setSourceModel(model)
 
