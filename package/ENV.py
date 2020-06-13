@@ -8,13 +8,9 @@ class ENV:
     # Name of the database file (with extension)
     db_name = 'qskm.db'
 
-    # TODO: check if this is ok in production environment
-    # Relative path of the database file in the project
-    rel_db_path = 'db\\{}'.format(db_name)
-
     # Name of the table that stores all data related to the game, including
     # id (transparent to user), name of the game, key/url of the game, notes, category, and more
-    game_table_name = 'Games'
+#    game_table_name = 'Games'
 
     # Default db file chooser path (used in conjunction with expanduser() func)
     default_db_folder_path = '~/Documents/'

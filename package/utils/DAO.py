@@ -73,15 +73,14 @@ class DAO:
     @classmethod
     # Remove one or more entries from the game table
     def remove_games(cls, id_list):
-        conn = cls.__get_or_create_conn()
-        cur = conn.cursor()
+        query = QtSql.QSqlQuery()
+
+        query.prepare('DELETE FROM Games WHERE id = (:id)')
 
         # Remove all entries on the list (identified by their ID)
         for game_id in id_list:
-            cur.execute('''DELETE FROM {} 
-                WHERE id = (?)'''.format(ENV.game_table_name), (game_id,))
-
-        conn.commit()
+            query.bindValue(':id', game_id)
+            query.exec()
 
     # Auxiliary method to get existing connection or create a new one if not existing
     @classmethod

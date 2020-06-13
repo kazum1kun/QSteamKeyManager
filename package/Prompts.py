@@ -28,7 +28,7 @@ class Prompts(QWidget):
     def show_file_chooser():
         """A file chooser prompt that asks for a (text) file to import."""
         file_chooser = QFileDialog()
-        file_chooser.setWindowTitle('Open a QSKM Collection...')
+        file_chooser.setWindowTitle('Open a file...')
         # User may only select the files that exists in the hdd
         file_chooser.setFileMode(QFileDialog.ExistingFile)
         # Will use the file's MIME type to determine autodetect
