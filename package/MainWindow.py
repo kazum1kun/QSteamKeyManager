@@ -5,7 +5,6 @@ from PyQt5.QtSql import QSqlTableModel
 from PyQt5.QtWidgets import QMainWindow, QActionGroup, QDialog
 
 from package.AboutMe import AboutMe
-from package.ENV import ENV
 from package.Prompts import Prompts
 from package.TableContextMenu import TableContextMenu
 from package.utils.DAO import DAO
