@@ -17,5 +17,12 @@ PyQt5-sip>=12.7.0
 # Needed to enable copying from/to clipboard
 pyperclip
 
+# Used to guess MIME type of the file
+python-magic-bin; !'linux' in sys.platform
+python-magic
+
+# Support for xml files
+openpyxl
+
 # Use this also if you want mypy/PyCharm integration
 PyQt5-stubs>=5.13

@@ -82,7 +82,9 @@ class MainWindow(QMainWindow, Ui_main_window):
         """Set up an SQL model to plug into the proxy model"""
         # Set up a SQL model
         model = QSqlTableModel(self, DAO.get_or_create_db(db_path))
-        model.setTable(ENV.game_table_name)
+        # Create a new in-memory table
+        DAO.create_table()
+        model.setTable('Games')
         model.setEditStrategy(QSqlTableModel.OnRowChange)
         self.proxy_model.setSourceModel(model)
 
@@ -167,12 +169,13 @@ class MainWindow(QMainWindow, Ui_main_window):
 
         checker = magic.Magic(mime=True)
         file_mime_type = checker.from_file(user_file)
-        # Reference:    .xls    	application/vnd.ms-excel
-        #               .xlsx       application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+        # Reference:    .xlsx       application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
         #               .txt        text/plain
         #               .db         application/x-sqlite3  ------> applicable to only sqlite db
         if file_mime_type == 'text/plain':
             parsed_file = TextReader.read(user_file, ';')
+        elif file_mime_type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+            pass
         # TODO process other file type here
 
         # TODO Ask user if they want to append it to the Collection or make a new one

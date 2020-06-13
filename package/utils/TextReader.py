@@ -1,7 +1,4 @@
-import re
-
-from package.ENV import ENV
-
+from .RegexWrapper import RegexWrapper
 
 class TextReader:
     """Support for reading old Java SKM file format"""
@@ -46,19 +43,9 @@ class TextReader:
         col_key = -1
 
         # Check each cols against predefined regex
-        if (re.findall(ENV.steam_key_regex, tokens[0]) or
-                re.findall(ENV.gog_key_regex, tokens[0]) or
-                re.findall(ENV.hb_gift_regex, tokens[0]) or
-                re.findall(ENV.itch_key_regex, tokens[0]) or
-                re.findall(ENV.origin_key_regex, tokens[0]) or
-                re.findall(ENV.uplay_key_regex, tokens[0])):
+        if RegexWrapper.is_key(tokens[0]):
             col_key = 0
-        elif (re.findall(ENV.steam_key_regex, tokens[1]) or
-              re.findall(ENV.gog_key_regex, tokens[1]) or
-              re.findall(ENV.hb_gift_regex, tokens[1]) or
-              re.findall(ENV.itch_key_regex, tokens[1]) or
-              re.findall(ENV.origin_key_regex, tokens[1]) or
-              re.findall(ENV.uplay_key_regex, tokens[1])):
+        elif RegexWrapper.is_key(tokens[1]):
             col_key = 1
         # TODO If none matches, ask user which col is the key resided
 
