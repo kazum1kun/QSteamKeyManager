@@ -1,10 +1,12 @@
 from .RegexWrapper import RegexWrapper
+from ..Prompts import Prompts
+
 
 class TextReader:
     """Support for reading old Java SKM file format"""
 
     @staticmethod
-    def read(input_file, delimiter):
+    def read(input_file, delimiter=None):
         """Read the input file line by line and try to extract key/game/notes info"""
 
         # Here's the interesting part: since the pre-QSKM text storage format is chaotic at best,
@@ -15,7 +17,7 @@ class TextReader:
             delimiter = ';'
 
         # Read line by line and
-        with open(input_file, encoding='utf-8') as fp:
+        with open(input_file, encoding='utf-8-sig') as fp:
             file_content = fp.read().splitlines()
 
             # Read a few lines and determine if (1) the delimiter is valid, and (2) the arrangement
@@ -56,6 +58,7 @@ class TextReader:
         """Here we do actual file parsing."""
         # Set up an list to store results
         game_key_list = []
+        lines_parsed = 0
 
         # Set the game column
         if col_key == 1:
@@ -74,5 +77,6 @@ class TextReader:
                     game_entry['notes'] = tokens[2]
 
                 game_key_list.append(game_entry)
-
+                lines_parsed += 1
+        Prompts.show_lines_parsed(lines_parsed)
         return game_key_list

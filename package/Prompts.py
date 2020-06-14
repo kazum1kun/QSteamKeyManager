@@ -7,6 +7,7 @@ from package.ENV import ENV
 
 class Prompts(QWidget):
     """A collection of prompts used in QSKM."""
+
     def __init__(self):
         super().__init__()
 
@@ -45,16 +46,24 @@ class Prompts(QWidget):
             return file_chooser.selectedFiles()[0]
 
     @staticmethod
+    def show_lines_parsed(num_lines):
+        """A prompt showing how many lines were parsed and imported from the file"""
+        info_prompt = QMessageBox()
+        info_prompt.setIcon(QMessageBox.Information)
+        info_prompt.setWindowTitle('File Parsed')
+        info_prompt.setText('QSKM has parsed the file and added {} entries to the collection.'.format(num_lines))
+        info_prompt.exec()
+
+    @staticmethod
     def show_exit_conf():
         """A prompt asking for confirmation on exit."""
         exit_conf = QMessageBox()
         exit_conf.setIcon(QMessageBox.Question)
-        exit_conf.setText('<b>Confirm Exit</b>')
-        exit_conf.setInformativeText('Do you want to exit?\n'
-                                     'All changes have been saved automatically.')
+        exit_conf.setWindowTitle('Confirm Exit')
+        exit_conf.setText('Do you want to exit?<br>'
+                          'All changes have been saved automatically.')
         exit_conf.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
         exit_conf.setDefaultButton(QMessageBox.Yes)
-        exit_conf.setWindowTitle('Exiting QSKM')
         user_choice = exit_conf.exec()
 
         if user_choice == QMessageBox.Yes:

@@ -20,8 +20,7 @@ class ENV:
     steam_search_url = 'https://store.steampowered.com/search/?term={}'
 
     # ---- GOG
-    # ---- NOTE: GOG doesn't have a dedicated page for searching, only APIs. Showing main page for now
-    gog_search_url = 'https://www.gog.com/'
+    gog_search_url = 'https://www.gog.com/games?search={}'
 
     # ---- itch.io
     itch_search_url = 'https://itch.io/search?q={}'

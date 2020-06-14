@@ -184,3 +184,4 @@ class MainWindow(QMainWindow, Ui_main_window):
         # Since empty notes are already taken care of in TextReader, we can safely
         for items in parsed_file:
             DAO.add_a_game(items['game'], items['key'], items['notes'])
+        self.table_view_content.model().sourceModel().select()
