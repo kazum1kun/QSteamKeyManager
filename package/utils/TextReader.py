@@ -6,16 +6,8 @@ class TextReader:
     """Support for reading old Java SKM file format"""
 
     @staticmethod
-    def read(input_file, delimiter=None):
+    def read(input_file, delimiter):
         """Read the input file line by line and try to extract key/game/notes info"""
-
-        # Here's the interesting part: since the pre-QSKM text storage format is chaotic at best,
-        # there is no way to guarantee if the lines are properly segregated, nor the positions of
-        # tokens. Here we assume that the lines are delimited by semicolons (;) (or the user-supplied
-        # delimiter).
-        if delimiter is None:
-            delimiter = ';'
-
         # Read line by line and
         with open(input_file, encoding='utf-8-sig') as fp:
             file_content = fp.read().splitlines()

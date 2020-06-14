@@ -1,6 +1,6 @@
 from os.path import expanduser
 
-from PyQt5.QtWidgets import QWidget, QMessageBox, QFileDialog, QInputDialog
+from PyQt5.QtWidgets import QWidget, QMessageBox, QFileDialog, QInputDialog, QLineEdit
 
 from package.ENV import ENV
 
@@ -58,11 +58,24 @@ class Prompts(QWidget):
     def ask_for_col():
         """When the parser is unable to determine which column is the key on, ask user for input"""
         col, ok = QInputDialog().getInt(None, 'Enter the column where key is on',
-                                        'QSKM was unable to auto detect the key column. Please enter it below', min=0)
+                                        'QSKM was unable to auto detect the key column.<br>'
+                                        'Please enter it below.',
+                                        min=0)
         if ok:
             return col
         else:
             return -1
+
+    @staticmethod
+    def ask_for_delimiter():
+        """Prompt user for the delimiter used in the text file"""
+        delimiter, ok = QInputDialog().getText(None, 'Enter the delimiter',
+                                               'You have selected a text file.<br>'
+                                               'Please enter the delimiter separating the elements (default ;).')
+        if ok and delimiter:
+            return delimiter
+        else:
+            return ';'
 
     @staticmethod
     def show_exit_conf():

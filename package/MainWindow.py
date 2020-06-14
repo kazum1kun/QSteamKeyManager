@@ -172,7 +172,13 @@ class MainWindow(QMainWindow, Ui_main_window):
         #               .txt        text/plain
         #               .db         application/x-sqlite3  ------> applicable to only sqlite db
         if file_mime_type == 'text/plain':
-            parsed_file = TextReader.read(user_file, ';')
+            # Here's the interesting part: since the pre-QSKM text storage format is chaotic at best,
+            # there is no way to guarantee if the lines are properly segregated, nor the positions of
+            # tokens. Here we assume that the lines are delimited by semicolons (;) (or the user-supplied
+            # delimiter).
+            delimiter = Prompts.ask_for_delimiter()
+            parsed_file = TextReader.read(user_file, delimiter)
+
         elif file_mime_type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
             pass
         # TODO process other file type here
