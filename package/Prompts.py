@@ -1,6 +1,6 @@
 from os.path import expanduser
 
-from PyQt5.QtWidgets import QWidget, QMessageBox, QFileDialog
+from PyQt5.QtWidgets import QWidget, QMessageBox, QFileDialog, QInputDialog
 
 from package.ENV import ENV
 
@@ -35,7 +35,7 @@ class Prompts(QWidget):
         # Will use the file's MIME type to determine autodetect
         filters = ['Auto Detect (*)',
                    'Text File (*.txt)',
-                   'Excel File (*.xlsx, *.xls)',
+                   'Excel File (*.xlsx)',
                    'Database File (*.db)']
 
         file_chooser.setNameFilters(filters)
@@ -48,11 +48,21 @@ class Prompts(QWidget):
     @staticmethod
     def show_lines_parsed(num_lines):
         """A prompt showing how many lines were parsed and imported from the file"""
-        info_prompt = QMessageBox()
-        info_prompt.setIcon(QMessageBox.Information)
-        info_prompt.setWindowTitle('File Parsed')
-        info_prompt.setText('QSKM has parsed the file and added {} entries to the collection.'.format(num_lines))
-        info_prompt.exec()
+        lines_prompt = QMessageBox()
+        lines_prompt.setIcon(QMessageBox.Information)
+        lines_prompt.setWindowTitle('File Parsed')
+        lines_prompt.setText('QSKM has parsed the file and added {} entries to the collection.'.format(num_lines))
+        lines_prompt.exec()
+
+    @staticmethod
+    def ask_for_col():
+        """When the parser is unable to determine which column is the key on, ask user for input"""
+        col, ok = QInputDialog().getInt(None, 'Enter the column where key is on',
+                                        'QSKM was unable to auto detect the key column. Please enter it below', min=0)
+        if ok:
+            return col
+        else:
+            return -1
 
     @staticmethod
     def show_exit_conf():

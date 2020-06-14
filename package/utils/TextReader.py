@@ -42,14 +42,14 @@ class TextReader:
         """Here we a line and figure out which column are the key/game on"""
         # Only col 1 and 2 will be tested. Col 3 (if exists) will always be regarded as comments
         tokens = content[first_row].split(delimiter)
-        col_key = -1
 
         # Check each cols against predefined regex
         if RegexWrapper.is_key(tokens[0]):
             col_key = 0
         elif RegexWrapper.is_key(tokens[1]):
             col_key = 1
-        # TODO If none matches, ask user which col is the key resided
+        else:
+            col_key = Prompts.ask_for_col()
 
         return col_key
 
@@ -63,8 +63,10 @@ class TextReader:
         # Set the game column
         if col_key == 1:
             col_game = 0
-        else:
+        elif col_key == 0:
             col_game = 1
+        else:
+            return game_key_list
 
         for i in range(start, len(content)):
             tokens = content[i].split(delimiter)
