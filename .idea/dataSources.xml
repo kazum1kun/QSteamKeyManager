@@ -7,5 +7,11 @@
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/db/qskm.db</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="rrr.db" uuid="8c9b6cf4-568d-415d-a59a-27e8c3f6a26e">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$USER_HOME$/Desktop/rrr.db</jdbc-url>
+    </data-source>
   </component>
 </project>

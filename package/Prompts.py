@@ -1,7 +1,8 @@
 from os.path import expanduser
 
-from PyQt5.QtWidgets import QWidget, QMessageBox, QFileDialog, QInputDialog, QLineEdit
+from PyQt5.QtWidgets import QWidget, QMessageBox, QFileDialog, QInputDialog, QDialog
 
+from package.AboutMe import AboutMe
 from package.ENV import ENV
 
 
@@ -26,10 +27,19 @@ class Prompts(QWidget):
             return db_chooser.selectedFiles()[0]
 
     @staticmethod
-    def show_file_chooser():
+    def show_about_me():
+        """Shows a 'About QSKM' page along with other nice stuff"""
+        about_me = QDialog()
+        ui = AboutMe()
+        ui.setupUi(about_me)
+        ui.setup_signals()
+        about_me.exec()
+
+    @staticmethod
+    def show_file_open():
         """A file chooser prompt that asks for a (text) file to import."""
         file_chooser = QFileDialog()
-        file_chooser.setWindowTitle('Open a file...')
+        file_chooser.setWindowTitle('Open a File...')
         # User may only select the files that exists in the hdd
         file_chooser.setFileMode(QFileDialog.ExistingFile)
         # Will use the file's MIME type to determine autodetect
@@ -39,6 +49,20 @@ class Prompts(QWidget):
                    'Database File (*.db)']
 
         file_chooser.setNameFilters(filters)
+        file_chooser.setDirectory(expanduser(ENV.default_db_folder_path))
+
+        # Return the full path to file back to main window if the execution was successful
+        if file_chooser.exec():
+            return file_chooser.selectedFiles()[0]
+
+    @staticmethod
+    def show_file_save():
+        """A file chooser prompt allows user to save the collection."""
+        file_chooser = QFileDialog()
+        file_chooser.setFileMode(QFileDialog.AnyFile)
+        file_chooser.setWindowTitle('Save New Collection...')
+        file_chooser.setNameFilter('Database File (*.db)')
+        file_chooser.setDefaultSuffix('db')
         file_chooser.setDirectory(expanduser(ENV.default_db_folder_path))
 
         # Return the full path to file back to main window if the execution was successful
@@ -91,3 +115,21 @@ class Prompts(QWidget):
 
         if user_choice == QMessageBox.Yes:
             exit(0)
+
+    @staticmethod
+    def show_exit_conf_unsaved():
+        """A prompt asking for confirmation on exit (users have unsaved changed)."""
+        exit_conf = QMessageBox()
+        exit_conf.setIcon(QMessageBox.Question)
+        exit_conf.setWindowTitle('Confirm Exit')
+        exit_conf.setText('<b>You have unsaved changes.</b><br><br>'
+                          'Exit without saving will discard these changes.<br>'
+                          'Do you want to save the changes?')
+        exit_conf.setStandardButtons(QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel)
+        exit_conf.setDefaultButton(QMessageBox.Save)
+        user_choice = exit_conf.exec()
+
+        if user_choice == QMessageBox.Discard:
+            exit(0)
+        elif user_choice == QMessageBox.Save:
+            return 1

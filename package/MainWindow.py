@@ -2,9 +2,8 @@
 import magic
 from PyQt5.QtCore import Qt, QSortFilterProxyModel, QRegExp
 from PyQt5.QtSql import QSqlTableModel
-from PyQt5.QtWidgets import QMainWindow, QActionGroup, QDialog
+from PyQt5.QtWidgets import QMainWindow, QActionGroup
 
-from package.AboutMe import AboutMe
 from package.Prompts import Prompts
 from package.TableContextMenu import TableContextMenu
 from package.utils.DAO import DAO
@@ -18,103 +17,26 @@ class MainWindow(QMainWindow, Ui_main_window):
 
         # Declare some important instance attrs
         self.proxy_model = None
+        self.memory_changed = False
 
         # Load UI layout defined in the ui file
         self.setupUi(self)
 
         # Table view and model
-        self.setup_model()
-        self.setup_view()
+        self.__setup_model()
+        self.__setup_view()
 
         # Top toolbar
-        self.setup_language_grouping()
+        self.__setup_language_grouping()
 
         # Internal wiring (slots & signals)
-        self.setup_signals()
+        self.__setup_signals()
 
         # Showtime!
         self.show()
 
-    # Define events (signals) in the main window
-    def setup_signals(self):
-        # User clicks on "Open Collection" -> Show a file chooser prompt (limited to .db type)
-        self.action_open_collection.triggered.connect(self.load_db)
-
-        # User clicks on "Import From File" -> Shows a file chooser prompt
-        self.action_import_from_file.triggered.connect(self.load_file)
-
-        # User clicks on "Exit" -> "Confirm Exit" prompt
-        self.action_exit.triggered.connect(Prompts.show_exit_conf)
-
-        # User clicks on "Add" -> Check and add an entry to the table
-        self.pushButton_add.clicked.connect(self.add_entry)
-
-        # User clicks on "About" -> "About QSKM" dialog shows
-        self.action_about_qskm.triggered.connect(self.show_about_me)
-
-        # User enter or delete text from the search box -> Update model filter
-        self.lineEdit_search.textChanged.connect(self.filter_entries)
-
-        # User clicks "Clear" -> Search box gets cleared
-        self.pushButton_clear.clicked.connect(self.lineEdit_search.clear)
-
-        # User right clicks the table -> A context menu shows up with various features
-        self.table_view_content.setContextMenuPolicy(Qt.CustomContextMenu)
-        self.table_view_content.customContextMenuRequested.connect(self.show_table_context_menu)
-
-    # Set up the model in the table and link it to the view
-    def setup_model(self):
-        # Add a filter model to filter (search) items, which in turn includes a SQL model
-        self.proxy_model = QSortFilterProxyModel()
-        # Set search column to -1 to search from all columns
-        # this will also search for entry's id which might not be a good idea
-        # TODO: maybe reimplement QSFPM to have custom columns?
-        self.proxy_model.setFilterKeyColumn(-1)
-
-        # Set up underlying SQL model
-        self.setup_sql_model(None)
-
-        # Link table model to the table view
-        self.table_view_content.setModel(self.proxy_model)
-
-    def setup_sql_model(self, db_path):
-        """Set up an SQL model to plug into the proxy model"""
-        # Set up a SQL model
-        model = QSqlTableModel(self, DAO.get_or_create_db(db_path))
-        # Create a new in-memory table
-        DAO.create_table()
-        model.setTable('Games')
-        model.setEditStrategy(QSqlTableModel.OnRowChange)
-        self.proxy_model.setSourceModel(model)
-
-        # Customize the name of headers
-        model.setHeaderData(1, Qt.Horizontal, 'Game')
-        model.setHeaderData(2, Qt.Horizontal, 'Key/URL')
-        model.setHeaderData(3, Qt.Horizontal, 'Notes')
-        model.select()
-
-    # Tweak some setting in the view
-    def setup_view(self):
-        # Set the size of each columns
-        self.table_view_content.setColumnWidth(1, 250)
-        self.table_view_content.setColumnWidth(2, 250)
-        self.table_view_content.setColumnWidth(3, 100)
-
-        # Hide some columns: id, category, and tag
-        self.table_view_content.hideColumn(0)
-        self.table_view_content.hideColumn(4)
-        self.table_view_content.hideColumn(5)
-
-    # Set up grouping in the language selector
-    def setup_language_grouping(self):
-        # Group language selector actions
-        language_group = QActionGroup(self)
-        self.action_english.setActionGroup(language_group)
-        self.action_chinese_simplified.setActionGroup(language_group)
-        self.action_japanese.setActionGroup(language_group)
-
     # Add a new entry to the collection
-    def add_entry(self):
+    def __add_entry(self):
         game = self.lineEdit_game.text().strip()
         key = self.lineEdit_key.text().strip()
         notes = self.lineEdit_notes.text().strip()
@@ -131,39 +53,33 @@ class MainWindow(QMainWindow, Ui_main_window):
             # Refresh the model to show the changes
             self.table_view_content.model().sourceModel().select()
 
+            # Update the title bar and the state to reflect this change
+            self.__on_memory_modified()
+
     # Filter entries after keyword changes
-    def filter_entries(self):
+    def __filter_entries(self):
         keyword = self.lineEdit_search.text().strip()
 
         # Apply keywords as regexp (case insensitive)
         self.table_view_content.model().setFilterRegExp(QRegExp(keyword, Qt.CaseInsensitive))
 
     # Bring up a context menu
-    def show_table_context_menu(self, pos):
+    def __show_table_context_menu(self, pos):
         TableContextMenu.show(self, pos)
 
     # Detour close events to the prompt
     def closeEvent(self, event):
-        Prompts.show_exit_conf()
+        self.__on_exit()
         # If the window doesn't get closed at this point, ignore the event.
         event.ignore()
 
-    @staticmethod
-    def show_about_me():
-        """Shows a 'About QSKM' page along with other nice stuff"""
-        about_me = QDialog()
-        ui = AboutMe()
-        ui.setupUi(about_me)
-        ui.setup_signals()
-        about_me.exec()
-
-    def load_db(self):
+    def __load_db(self):
         db_path = Prompts.show_db_chooser()
         self.setup_sql_model(db_path)
 
-    def load_file(self):
+    def __load_file(self):
         """Invoke the window to read, parse and load user-selected files"""
-        user_file = Prompts.show_file_chooser()
+        user_file = Prompts.show_file_open()
         parsed_file = []
 
         checker = magic.Magic(mime=True)
@@ -191,3 +107,100 @@ class MainWindow(QMainWindow, Ui_main_window):
         for items in parsed_file:
             DAO.add_a_game(items['game'], items['key'], items['notes'])
         self.table_view_content.model().sourceModel().select()
+
+    # Define events (signals) in the main window
+    def __setup_signals(self):
+        # User clicks on "Open Collection" -> Show a file chooser prompt (limited to .db type)
+        self.action_open_collection.triggered.connect(self.__load_db)
+
+        # User clicks on "Import From File" -> Shows a file chooser prompt
+        self.action_import_from_file.triggered.connect(self.__load_file)
+
+        # User clicks on "Exit" -> "Confirm Exit" prompt
+        self.action_exit.triggered.connect(self.__on_exit)
+
+        # User clicks on "Add" -> Check and add an entry to the table
+        self.pushButton_add.clicked.connect(self.__add_entry)
+
+        # User clicks on "About" -> "About QSKM" dialog shows
+        self.action_about_qskm.triggered.connect(Prompts.show_about_me)
+
+        # User enter or delete text from the search box -> Update model filter
+        self.lineEdit_search.textChanged.connect(self.__filter_entries)
+
+        # User clicks "Clear" -> Search box gets cleared
+        self.pushButton_clear.clicked.connect(self.lineEdit_search.clear)
+
+        # User right clicks the table -> A context menu shows up with various features
+        self.table_view_content.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.table_view_content.customContextMenuRequested.connect(self.__show_table_context_menu)
+
+    # Set up the model in the table and link it to the view
+    def __setup_model(self):
+        # Add a filter model to filter (search) items, which in turn includes a SQL model
+        self.proxy_model = QSortFilterProxyModel()
+        # Set search column to -1 to search from all columns
+        # this will also search for entry's id which might not be a good idea
+        # TODO: maybe reimplement QSFPM to have custom columns?
+        self.proxy_model.setFilterKeyColumn(-1)
+
+        # Set up underlying SQL model
+        self.setup_sql_model(None)
+
+        # Link table model to the table view
+        self.table_view_content.setModel(self.proxy_model)
+
+    def setup_sql_model(self, db_path):
+        """Set up an SQL model to plug into the proxy model"""
+        # Set up a SQL model
+        model = QSqlTableModel(self, DAO.get_or_create_db(db_path))
+        # Create a new in-memory table
+        DAO.create_table()
+        self.__change_window_title('new collection')
+        model.setTable('Games')
+        model.setEditStrategy(QSqlTableModel.OnRowChange)
+        self.proxy_model.setSourceModel(model)
+
+        # Customize the name of headers
+        model.setHeaderData(1, Qt.Horizontal, 'Game')
+        model.setHeaderData(2, Qt.Horizontal, 'Key/URL')
+        model.setHeaderData(3, Qt.Horizontal, 'Notes')
+        model.select()
+
+    # Tweak some setting in the view
+    def __setup_view(self):
+        # Set the size of each columns
+        self.table_view_content.setColumnWidth(1, 250)
+        self.table_view_content.setColumnWidth(2, 250)
+        self.table_view_content.setColumnWidth(3, 100)
+
+        # Hide some columns: id, category, and tag
+        self.table_view_content.hideColumn(0)
+        self.table_view_content.hideColumn(4)
+        self.table_view_content.hideColumn(5)
+
+    # Set up grouping in the language selector
+    def __setup_language_grouping(self):
+        # Group language selector actions
+        language_group = QActionGroup(self)
+        self.action_english.setActionGroup(language_group)
+        self.action_chinese_simplified.setActionGroup(language_group)
+        self.action_japanese.setActionGroup(language_group)
+
+    def __change_window_title(self, file_name=None):
+        if file_name:
+            self.setWindowTitle('QSteamKeyManager - {}'.format(file_name))
+        else:
+            self.setWindowTitle('QSteamKeyManager')
+
+    def __on_memory_modified(self):
+        self.memory_changed = True
+        self.setWindowTitle(self.windowTitle() + ' (unsaved changes)')
+
+    def __on_exit(self):
+        if self.memory_changed:
+            if Prompts.show_exit_conf_unsaved():
+                db_save_path = Prompts.show_file_save()
+                DAO.create_memory_dump(db_save_path)
+        else:
+            Prompts.show_exit_conf()

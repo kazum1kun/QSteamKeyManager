@@ -9,8 +9,9 @@ class DAO:
 
     # Initialize a table where all entries will be stored
     @classmethod
-    def create_table(cls):
-        query = QSqlQuery()
+    def create_table(cls, db_conn=None):
+        db = db_conn if db_conn else cls.db
+        query = QSqlQuery(db)
         query.exec(
             '''CREATE TABLE IF NOT EXISTS Games (
                         id INTEGER PRIMARY KEY, 
@@ -23,16 +24,18 @@ class DAO:
 
     # Load all games from the game table
     @classmethod
-    def load_all_games(cls):
-        query = QSqlQuery()
+    def load_all_games(cls, db_conn=None):
+        db = db_conn if db_conn else cls.db
+        query = QSqlQuery(db)
         query.exec('SELECT * FROM Games')
 
-        return query.result()
+        return query
 
     @classmethod
     # Add an entry to the game table
-    def add_a_game(cls, game, key, notes):
-        query = QSqlQuery()
+    def add_a_game(cls, game, key, notes, db_conn=None):
+        db = db_conn if db_conn else cls.db
+        query = QSqlQuery(db)
         query.prepare('INSERT INTO Games (game, key, notes) VALUES (:game, :key, :notes)')
         query.bindValue(':game', game)
         query.bindValue(':key', key)
@@ -51,12 +54,26 @@ class DAO:
             query.bindValue(':id', game_id)
             query.exec()
 
+    @classmethod
+    # Save current database content in memory to a file on HDD
+    def create_memory_dump(cls, db_path):
+        # Create the connection to new db
+        dump_db = QtSql.QSqlDatabase.addDatabase('QSQLITE', 'dump-db')
+        dump_db.setDatabaseName(db_path)
+        dump_db.open()
+
+        # Create the table and fill it with data
+        cls.create_table(dump_db)
+        temp_records = cls.load_all_games()
+        while temp_records.next():
+            cls.add_a_game(temp_records.value('game'), temp_records.value('key'), temp_records.value('notes'), dump_db)
+
     # Auxiliary method to get existing connection or create a new one if not existing
     @classmethod
     def get_or_create_db(cls, db_path):
         if cls.db is None:
             # If no db_path is supplied, load the default on
-            cls.db = QtSql.QSqlDatabase.addDatabase('QSQLITE')
+            cls.db = QtSql.QSqlDatabase.addDatabase('QSQLITE', 'in-memory')
             if db_path is None:
                 cls.db.setDatabaseName(':memory:')
             else:
