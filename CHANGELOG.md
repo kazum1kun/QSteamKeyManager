@@ -1,5 +1,17 @@
 # Changelog
-## Alpha 0.0.6 - Legal Stuff and Paperworks
+## Alpha 0.0.7 - Saved a Trip...
+Commit [019e6e0](https://github.com/l19980623/QSteamKeyManager/commit/019e6e00580984ae529d89eb81222175ea329dc2) on Jun 14, 2020. No production build.
+
+This update brings much needed functionality that enables interaction with in-memory database and text files.
+
+* [NEW] After startup, changes are saved to an in-memory database.
+   * Upon exit, you will have a chance to save these changes to a local database... or you can discard it. The choice is yours.
+   * Alternatively, you can save the changes to a local database and continue to work from there. 
+* [NEW] Now you can import entries from a text file. The program will try its best but can still fail under extreme circumstances.
+* [NEW] A few more prompts for maximum user-friendliness.
+* [FIX] Fixed issues that cause program to crash.
+
+## Alpha 0.0.6 - Legal Stuff and Paperwork
 Committed on May 16, 2019. No production build.
 
 This update focuses on the legal stuff: things like "About Me" page, license,

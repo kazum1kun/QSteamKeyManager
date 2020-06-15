@@ -9,7 +9,6 @@ Do you have a lot of leftover keys from all that bundles but wonder what you can
 
 ## Getting Started
 Since there is no official build as of yet, you need to install and compile the files yourself.
-(Assume you have installed Qt 5.12+ on your local machine already)
 
 1. Clone the project: `git clone https://github.com/l19980623/QSteamKeyManager.git`
 2. Install necessary dependencies: `cd QSteamKeyManager` then `pip install -r requirements.txt`
@@ -22,6 +21,7 @@ You can then compile them into `.py` files by executing
 ## Functionality
 As of now, the QSKM supports the following operations:
 - Add/Remove entries to the table
+- Import keys from an existing text file
 - Add notes to entries
 - Edit an entry
 - Sort the list
@@ -31,8 +31,8 @@ As of now, the QSKM supports the following operations:
 - Save the table to sql file
 
 Additional functionality is being worked on:
-- Import keys from an existing text file (in progress)
-- Activate keys on various platforms (in progress)
+- Undo/redo changes
+- Activate keys on various platforms
     - Autodetect the key format?
 - Multi-language support
 - Tag and categorize entries
