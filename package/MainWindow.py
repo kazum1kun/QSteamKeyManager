@@ -18,6 +18,7 @@ class MainWindow(QMainWindow, Ui_main_window):
         # Declare some important instance attrs
         self.proxy_model = None
         self.memory_changed = False
+        self.current_file = None
 
         # Load UI layout defined in the ui file
         self.setupUi(self)
@@ -53,8 +54,9 @@ class MainWindow(QMainWindow, Ui_main_window):
             # Refresh the model to show the changes
             self.table_view_content.model().sourceModel().select()
 
-            # Update the title bar and the state to reflect this change
-            self.__on_memory_modified()
+            # Update the title bar and the state to reflect this change (only applicable when editing in memory)
+            if not self.current_file:
+                self.__on_memory_modified()
 
     # Filter entries after keyword changes
     def __filter_entries(self):
@@ -108,6 +110,21 @@ class MainWindow(QMainWindow, Ui_main_window):
             DAO.add_a_game(items['game'], items['key'], items['notes'])
         self.table_view_content.model().sourceModel().select()
 
+    # Dump current in-memory database to a db file on HDD
+    def __dump_memory_to_file(self):
+        db_save_path = Prompts.show_file_save()
+        DAO.create_memory_dump(db_save_path)
+        self.__change_window_title(db_save_path)
+        self.memory_changed = False
+        self.current_file = db_save_path
+
+    # Change the tile of main window
+    def __change_window_title(self, file_name=None):
+        if file_name:
+            self.setWindowTitle('QSteamKeyManager - {}'.format(file_name))
+        else:
+            self.setWindowTitle('QSteamKeyManager')
+
     # Define events (signals) in the main window
     def __setup_signals(self):
         # User clicks on "Open Collection" -> Show a file chooser prompt (limited to .db type)
@@ -115,6 +132,9 @@ class MainWindow(QMainWindow, Ui_main_window):
 
         # User clicks on "Import From File" -> Shows a file chooser prompt
         self.action_import_from_file.triggered.connect(self.__load_file)
+
+        # User clicks on "Save Changes" -> Save existing in-memory content, or do nothing
+        self.action_save_changes.triggered.connect(self.__dump_memory_to_file)
 
         # User clicks on "Exit" -> "Confirm Exit" prompt
         self.action_exit.triggered.connect(self.__on_exit)
@@ -187,12 +207,6 @@ class MainWindow(QMainWindow, Ui_main_window):
         self.action_chinese_simplified.setActionGroup(language_group)
         self.action_japanese.setActionGroup(language_group)
 
-    def __change_window_title(self, file_name=None):
-        if file_name:
-            self.setWindowTitle('QSteamKeyManager - {}'.format(file_name))
-        else:
-            self.setWindowTitle('QSteamKeyManager')
-
     def __on_memory_modified(self):
         self.memory_changed = True
         self.setWindowTitle(self.windowTitle() + ' (unsaved changes)')
@@ -200,7 +214,12 @@ class MainWindow(QMainWindow, Ui_main_window):
     def __on_exit(self):
         if self.memory_changed:
             if Prompts.show_exit_conf_unsaved():
-                db_save_path = Prompts.show_file_save()
-                DAO.create_memory_dump(db_save_path)
-        else:
+                self.__dump_memory_to_file()
+        elif self.current_file:
             Prompts.show_exit_conf()
+        else:
+            exit(0)
+
+    def __on_save_changes(self):
+        if not self.current_file:
+            self.__dump_memory_to_file()
